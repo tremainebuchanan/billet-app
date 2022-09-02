@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Appointments</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <div class="container-fluid">
+
+        <nav class="navbar is-fixed-top is-light" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="#">
+                <img src="/images/logo.png">
+              </a>
+          
+              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+            </div>
+          
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <!-- <a class="navbar-item">
+                  Appointments
+                </a> -->
+          
+               
+          
+                
+              </div>
+          
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <p><%= name %></a></p>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link">
+                   Settings
+                  </a>
+          
+                  <div class="navbar-dropdown">
+                    <a class="navbar-item">
+                      Profile
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="/logout">
+                      Logout
+                    </a>
+                  </div>
+                </div>
+                <!-- <div class="navbar-item">
+                  <div class="buttons">
+                   
+                    <a class="button is-light" href="/logout">
+                      Log out
+                    </a>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </nav>
+          <div class="content" style="margin-top: 80px;">
+            <div style="width: 500px; margin:auto">
+              <div class="notification is-primary is-light" id="notification" style="display: none;">
+                <button class="delete" onclick="dismiss()"></button>
+                <p id="message-text"></p>
+              </div>
+            </div>
+            <div style="margin: 48px 24px">
+              <div class="level">
+                <div class="level-left">
+                  <h1 class="title is-4">Appointments</h1>
+                </div>
+                <div class="level-right">
+                  <button class="button is-link" onclick="openNewModal()">New Appointment</button>
+                </div>
+              </div>
+              
+            <table class="table is-fullwidth is-striped" style="margin-top: 48px;">
+              <tr>
+                <th>Status</th>
+                <th>Customer Name</th>
+                <th>Service</th>
+                <th>Time</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+              <tbody>
+                <% appointments.forEach((apt)=> { %>
+                  <tr>
+                    <td><span class='tag <%= getStatusColor(apt.status) %>'><%= apt.status %></span></td>
+                    <td><%= apt.first_name%> <%= apt.last_name%></td>
+                    <td><%= apt.service %></td>
+                    <!-- <td><%= moment(apt.start_date).format('Do MMMM, YYYY') %></td> -->
+                    <td><%= apt.start_time %></td>
+                    <td><%= apt.email %></td>
+                    <td>
+                      <div class="is-grouped">
+                        <a class="button is-small is-info is-light" href="/appointments/<%= tenant %>/<%= apt.id %>/edit">Edit</a>
+                        <button class="button is-small is-danger is-light" onclick="openModal('cancel', '<%= JSON.stringify(apt.id) %>')">Cancel Appointment</button>
+                      </div>
+                      </td>
+                    
+                  </tr>
+              <% }) %>
+              </tbody>
+            </table> 
+      
+            <div class="modal" id="edit">
+              <div class="modal-background"></div>
+              <div class="modal-content" style="width: 450px">
+                <div class="box">
+                  <div class="field" >
+                    <label class="label">Customer Name</label>
+                    <div class="control" id="">
+                      <!-- <input class="input is-static"" type="text" readonly> -->
+                    </div>
+                  </div>
+                
+                  
+                 <div class="field">
+                  <label for="label" class="label">Date</label>
+                  <div class="control" id="start_date">
+                      <!-- <input type="date" class="input" name="" id=""> -->
+                  </div>
+                 </div>
+      
+                 <div class="field">
+                  <label for="label" class="label">Time</label>
+                  <div class="control" id="start_time">
+                      <!-- <input type="time" class="input" name="" id=""> -->
+                  </div>
+                 </div>
+                  
+                  <div class="field">
+                    <label class="label">Status</label>
+                    <div class="control">
+                      <div class="select">
+                        <select>
+                          <% times.forEach((time)=> { %>
+                            <option value="<%= time%>"><%= time%></option>
+                        <% }) %>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <div class="field">
+                    <label class="label">Service</label>
+                    <div class="control">
+                      <div class="select">
+                        <select>
+                          <option>Select dropdown</option>
+                          <option>With options</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  
+               
+                  
+                  
+                 
+                  
+                  <div class="field is-grouped is-grouped-right">
+                    <div class="control">
+                      <button class="button is-link" onclick="closeModal('edit')">Cancel</button>
+                    </div>
+                    <div class="control">
+                      <button class="button is-link is-light" onclick="closeModal('edit')">Update Appointment</button>
+                    </div>
+                  </div>
+                </div>
+               
+              </div>
+              <button class="modal-close is-large" aria-label="close" onclick="closeModal(this)"></button>
+            </div>
+            
+            <div class="modal" id="create">
+              <div class="modal-background"></div>
+              <div class="modal-content" style="width: 450px">
+                <div class="box">
+                  <div class="content">
+                    <form action="" method="post" autocomplete="off">
+                      <h1 class="subtitle is-5">New Appointment</h1>
+                      <div class="columns">
+                        <div class="column">
+                          <div class="field" >
+                            <label class="label">First Name</label>
+                            <div class="control" >
+                              <input class="input" type="text" id="first_name" onblur="isEmpty(this)">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="column">
+                          <div class="field" >
+                            <label class="label">Last Name</label>
+                            <div class="control" >
+                              <input class="input" type="text" id="last_name">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                   
+      
+                    
+        
+                      <div class="field" >
+                        <label class="label">Email</label>
+                        <div class="control" >
+                          <input class="input" type="email" id="email">
+                        </div>
+                      </div>
+        
+                      <div class="field" >
+                        <label class="label">Contact Number</label>
+                        <div class="control" >
+                          <input class="input" type="text" id="contact">
+                        </div>
+                      </div>
+                    
+                      <div class="columns">
+                        <div class="column">
+                          <div class="field">
+                            <label for="label" class="label">Appointment Date</label>
+                            <div class="control" id="start_date">
+                                <input type="date" class="input" name="" id="apt_date">
+                            </div>
+                           </div>
+                        </div>
+                        <div class="column">
+                          <div class="field">
+                            <label class="label">Appointment Time</label>
+                            <div class="control">
+                              <div class="select">
+                                <select id="apt_time">
+                                  <% times.forEach((time)=> { %>
+                                    <option value="<%= time%>"><%= time%></option>
+                                <% }) %>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+      
+                      </div>
+                    
+          
+                    
+                    
+          
+                      <div class="field">
+                        <label class="label">Service</label>
+                        <div class="control">
+                          <div class="select">
+                            <select id="service">
+                              <% services.forEach((service)=> { %>
+                                <option value="<%= service.id%>"><%= service.title%></option>
+                            <% }) %>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="field is-grouped is-grouped-right" style="margin-top: 24px;">
+                        <div class="control">
+                          <button class="button is-light" onclick="closeModal('create', event)">Cancel</button>
+                        </div>
+                        <div class="control">
+                          <button class="button is-link" onclick="createApt(event, '<%= JSON.stringify(tenant)%>')">Save</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  
+                </div>
+                
+              </div>
+              <button class="modal-close is-large" aria-label="close" onclick="closeModal('create')"></button>
+            </div>
+            
+      
+            <div class="modal" id="cancel">
+              <div class="modal-background"></div>
+              <div class="modal-content" style="width: 450px">
+                <div class="box">
+                  <div class="content">
+                    <h1 class="title is-5">Cancel Appointment</h1>
+                    <p id="cancel-message" style="margin-bottom: 24px;"></p>
+                  </div>
+                  
+                 
+                  
+                  <div class="field is-grouped is-grouped-right">
+                    <div class="control">
+                      <button class="button is-link" onclick="closeModal('cancel')">Close</button>
+                    </div>
+                    <div class="control">
+                      <button class="button is-danger" onclick="cancelAppointment()">Cancel Appointment</button>
+                    </div>
+                  </div>
+                </div>
+      
+              </div>
+              <button class="modal-close is-large" aria-label="close" onclick="closeModal('cancel')"></button>
+            </div>
+      
+            </div>
+          </div>
+      
+          
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

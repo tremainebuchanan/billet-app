@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Appointments | Edit</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <div class="container-fluid">
+
+        <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="#">
+                <img src="/images/logo.png">
+              </a>
+          
+              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+            </div>
+          
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <a class="navbar-item" href="/appointments/<%= tenant %>">
+                  Appointments
+                </a>
+          
+               
+          
+                
+              </div>
+          
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <p><%= name %></a></p>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link">
+                   Settings
+                  </a>
+          
+                  <div class="navbar-dropdown">
+                    <a class="navbar-item">
+                      Profile
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="/logout">
+                      Logout
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+      <div style="margin: 24px 24px" class="content">
+        
+       
+        <div style="width: 500px;margin:auto">
+            <div class="notification is-primary is-light" id="notification" style="display: none;">
+                <button class="delete" onclick="dismiss()"></button>
+                <p id="message-text"></p>
+              </div>
+
+            <div class="box">
+                <div class="level">
+                    <div class="level-left">
+                      <h1 class="title is-4">Edit Appointment</h1>
+                    </div>
+                    <div class="level-right">
+                      <button class="button is-link" onclick="saveEdit('<%= JSON.stringify(tenant)%>','<%= JSON.stringify(appointment.id)%>')">Save</button>
+                    </div>
+                  </div>
+                  
+                <form action="" method="post" autocomplete="off">
+                    <div class="columns">
+                      <div class="column">
+                        <div class="field" >
+                          <label class="label">First Name</label>
+                          <div class="control" >
+                            <input class="input" type="text" id="first_name" readonly value="<%= appointment.first_name%>" disabled>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="column">
+                        <div class="field" >
+                          <label class="label">Last Name</label>
+                          <div class="control" >
+                            <input class="input" type="text" id="last_name" readonly value="<%= appointment.last_name%>" disabled>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                 
+        
+                  
+        
+                    <div class="field" >
+                      <label class="label">Email</label>
+                      <div class="control" >
+                        <input class="input" type="email" id="email" readonly value="<%= appointment.email%>" disabled>
+                      </div>
+                    </div>
+        
+                    <div class="field" >
+                      <label class="label">Contact Number</label>
+                      <div class="control" >
+                        <input class="input" type="text" id="contact" readonly value="<%= appointment.contact%>" disabled>
+                      </div>
+                    </div>
+                  
+                    <div class="columns">
+                      <div class="column">
+                        <div class="field">
+                          <label for="label" class="label">Appointment Date</label>
+                          <div class="control" id="start_date">
+                              <input type="date" class="input" name="" id="apt_date" value="<%= moment(appointment.start_date).format('YYYY-MM-DD')%>">
+                          </div>
+                         </div>
+                      </div>
+                      <div class="column">
+                        <div class="field">
+                          <label class="label">Appointment Time</label>
+                          <div class="control">
+                            <div class="select">
+                              <select id="apt_time">
+                                <% times.forEach((time)=> { %>
+                                    <% if(time === appointment.start_time){%>
+                                        <option value="<%= time%>" selected><%= time%></option>
+                                        <%}else{%>
+                                        <option value="<%= time%>"><%= time%></option>
+                                    <%}%>
+                              <% }) %>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+        
+                    </div>
+                  
+        
+                  
+                  
+        
+                    <div class="field">
+                      <label class="label">Service</label>
+                      <div class="control">
+                        <div class="select">
+                          <select id="service">
+                            <% services.forEach((service)=> { %>
+                                <% if(service.title === appointment.service){%>
+                                    <option value="<%= service.id%>" selected><%= service.title%></option>
+                                    <%}else{%>
+                                    <option value="<%= service.id%>"><%= service.title%></option>
+                                <%}%>
+                             
+                          <% }) %>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+            </div>
+            
+        </div>
+       
+
+    
+      
+      
+      
+
+     
+
+      </div>
+          
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

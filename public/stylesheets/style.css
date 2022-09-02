@@ -1,0 +1,15 @@
+
+.login-form-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form-inner{
+  width: 420px;
+  margin-top: 80px;
+}
+
+
+
+
