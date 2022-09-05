@@ -110,11 +110,11 @@ router.get('/api/appointments/:id', async(req, res, next) => {
 router.patch('/api/appointments/:id', async(req, res, next) => {
   const id = req.params.id;
   const services = getServiceList();
-  const service = services.find(x => x.id === parseInt(req.body.service))
+  const apt = await knex.knex('appointments').where('id', id);
+  const aptJson = JSON.parse(JSON.stringify(apt[0]))
   let request = req.body;
-  request.service = service.title;
+  request.service = aptJson[0].service;
   const appointment = await knex.knex('appointments').where('id', id).update(request);
-  console.log(appointment)
   const configs = {
     to: request.email,
     name: request.first_name,
@@ -186,7 +186,6 @@ router.get('/appointments/:tenant_id/:id/edit', async (req, res, next) => {
   const id = req.params.id;
   const appointment = await knex.knex.raw('select * from appointments where id = ?', [id]);
   const aptJSON = JSON.parse(JSON.stringify(appointment[0]));
-  console.log(aptJSON[0])
   res.render('appointment/edit', {name: session.name, times: aptTimes, services, tenant: tenant_id, appointment: aptJSON[0], moment: moment})
 })
 

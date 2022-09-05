@@ -8,12 +8,12 @@ let session = require('express-session');
 router.post('/auth', async (req, res, next) => {
   const user = await knex.knex('users').where({email: req.body.email})
   if(user.length < 1){
-    req.flash('info', 'email or password incorrec')
+    req.flash('info', 'Incorrect email or password entered.')
     return res.redirect('/login')
   }
   const result = await argon2.verify(user[0].password, req.body.password, {salt: user[0].salt});
   if(result === false){
-    req.flash('info', 'email or password incorrec')
+    req.flash('info', 'Incorrect email or password entered.');
     return res.redirect('/login')
   }
   session = req.session;
@@ -32,7 +32,6 @@ router.get('/login', (req, res, next) => {
 });
 
 router.get('/logout', async (req, res, next) => {
-  //await knex.knex.raw("update users set first_name = 'Ryan', last_name='Simons' where tenant_id = '76874243-9f50-4ffb-816d-88b4d4de0529'");
   req.session.destroy();
   res.redirect('/login');
 });

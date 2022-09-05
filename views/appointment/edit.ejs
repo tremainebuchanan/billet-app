@@ -57,7 +57,8 @@
           </nav>
       <div style="margin: 24px 24px" class="content">
         
-       
+        
+
         <div style="width: 500px;margin:auto">
             <div class="notification is-primary is-light" id="notification" style="display: none;">
                 <button class="delete" onclick="dismiss()"></button>
@@ -70,11 +71,78 @@
                       <h1 class="title is-4">Edit Appointment</h1>
                     </div>
                     <div class="level-right">
-                      <button class="button is-link" onclick="saveEdit('<%= JSON.stringify(tenant)%>','<%= JSON.stringify(appointment.id)%>')">Save</button>
+                      <div class="field is-grouped">
+                        <p class="control">
+                          <a class="button is-ghost" href="/appointments/<%= tenant %>">Cancel</a>
+                        </p>
+                        <p class="control">
+                          <button class="button is-link" onclick="saveEdit('<%= JSON.stringify(tenant)%>','<%= JSON.stringify(appointment.id)%>')">Save</button>
+                        </p>
+                       
+                      </div>
+                      
                     </div>
                   </div>
                   
                 <form action="" method="post" autocomplete="off">
+                  <fieldset style="margin-bottom:32px;">
+                   <p style="margin-bottom:12px;font-size: 18px;font-weight: bold;">Appointment</p>
+                   <hr style="margin-top:0;">
+                    
+                    <div class="columns">
+                      <div class="column">
+                        <div class="field">
+                          <label for="label" class="label">Date</label>
+                          <div class="control" id="start_date">
+                              <input type="date" class="input" name="" id="apt_date" value="<%= moment(appointment.start_date).format('YYYY-MM-DD')%>">
+                          </div>
+                         </div>
+                      </div>
+                      <div class="column">
+                        <div class="field">
+                          <label class="label">Time</label>
+                          <div class="control">
+                            <div class="select">
+                              <select id="apt_time">
+                                <% times.forEach((time)=> { %>
+                                    <% if(time === appointment.start_time){%>
+                                        <option value="<%= time%>" selected><%= time%></option>
+                                        <%}else{%>
+                                        <option value="<%= time%>"><%= time%></option>
+                                    <%}%>
+                              <% }) %>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+        
+                    </div>
+                  
+        
+                  
+                  
+        
+                    <div class="field">
+                      <label class="label">Type of Service</label>
+                      <div class="control">
+                        <div class="select">
+                          <select id="service">
+                            <% services.forEach((service)=> { %>
+                                <% if(service.title === appointment.service){%>
+                                    <option value="<%= service.id%>" selected><%= service.title%></option>
+                                    <%}else{%>
+                                    <option value="<%= service.id%>"><%= service.title%></option>
+                                <%}%>
+                             
+                          <% }) %>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <p style="margin-bottom:12px;font-size: 18px;font-weight: bold;">Client</p>
+                   <hr style="margin-top:0;">
                     <div class="columns">
                       <div class="column">
                         <div class="field" >
@@ -111,57 +179,8 @@
                       </div>
                     </div>
                   
-                    <div class="columns">
-                      <div class="column">
-                        <div class="field">
-                          <label for="label" class="label">Appointment Date</label>
-                          <div class="control" id="start_date">
-                              <input type="date" class="input" name="" id="apt_date" value="<%= moment(appointment.start_date).format('YYYY-MM-DD')%>">
-                          </div>
-                         </div>
-                      </div>
-                      <div class="column">
-                        <div class="field">
-                          <label class="label">Appointment Time</label>
-                          <div class="control">
-                            <div class="select">
-                              <select id="apt_time">
-                                <% times.forEach((time)=> { %>
-                                    <% if(time === appointment.start_time){%>
-                                        <option value="<%= time%>" selected><%= time%></option>
-                                        <%}else{%>
-                                        <option value="<%= time%>"><%= time%></option>
-                                    <%}%>
-                              <% }) %>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-        
-                    </div>
-                  
-        
-                  
-                  
-        
-                    <div class="field">
-                      <label class="label">Service</label>
-                      <div class="control">
-                        <div class="select">
-                          <select id="service">
-                            <% services.forEach((service)=> { %>
-                                <% if(service.title === appointment.service){%>
-                                    <option value="<%= service.id%>" selected><%= service.title%></option>
-                                    <%}else{%>
-                                    <option value="<%= service.id%>"><%= service.title%></option>
-                                <%}%>
-                             
-                          <% }) %>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
+                    
+                    
                   </form>
             </div>
             

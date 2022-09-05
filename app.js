@@ -18,7 +18,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(sessions({
-  secret: "",
+  secret: "D>PY_,E(,HBJeuaTY5.K.<!^s^>qt@gEJ,vZE*K1y~!w#h~9rg{*J/?SWM/",
   saveUninitialized:true,
   cookie: { maxAge: 1000 * 60 * 60 * 24 },
   resave: true

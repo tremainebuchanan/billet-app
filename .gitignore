@@ -62,3 +62,4 @@ typings/
 config/
 *.sql
 services/email.js
+app.js

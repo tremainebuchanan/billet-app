@@ -22,12 +22,13 @@
     <div class="container-fluid">
       <div class="login-form-container">
         <div class="login-form-inner">
-           <%= info  %> 
-           <div class="box">
-            <div style="width: 200px;margin:8px auto">
-              <img src="/images/logo.png" alt="logo">
-             </div>
-           </div>
+          <% if (info.length > 0) { %>
+            
+              <div class="notification is-danger is-light">
+                <p><strong><%= info  %> </strong></p>
+              </div>
+            
+          <% } %>
            
           <div class="box">
             
@@ -59,11 +60,7 @@
                       <span class="icon is-small is-left">
                         <i class="fa-solid fa-lock"></i>
                       </span>
-                      <!-- <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
-                          </span> -->
                     </div>
-                    <!-- <p class="help is-danger">This email is invalid</p> -->
                   </div>
         
                   <div class="field">
@@ -75,8 +72,6 @@
                 </form>
           </div>
         </div>
-       
-       
       </div>
     </div>
   </body>
