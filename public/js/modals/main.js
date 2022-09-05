@@ -7,7 +7,3 @@ const closeModalById = (id, action, event) => {
     document.getElementById(id).classList.toggle('is-active');
     if(action === 'reload') window.location.reload();
 }
-
-const resetFormById = (id) => {
-    
-}

@@ -5,6 +5,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="/js/libs/table-sort.js"></script>
   </head>
   <body>
     <div class="container-fluid">
@@ -86,19 +87,18 @@
                   <p id="message-text"></p>
                 </div>
               </div>
-              
+             
               <% if (appointments.length > 0) { %>
-                <table class="table is-fullwidth is-striped" style="margin-top: 48px;">
+                <table class="table is-fullwidth is-striped table-sort table-arrows" style="margin-top: 48px;" id="apts">
                   <tr>
                     <th>Status</th>
                     <th>Customer Name</th>
                     <th>Service</th>
-                    <!-- <th>Date</th> -->
                     <th>Time</th>
-                    <th>Email</th>
-                    <th>Actions</th>
+                    <th class="disable-sort">Email</th>
+                    <th class="disable-sort">Actions</th>
                   </tr>
-                  <tbody>
+                  
                     <% appointments.forEach((apt)=> { %>
                       <tr>
                         <td><span class='tag <%= getStatusColor(apt.status) %>'><%= apt.status %></span></td>
@@ -116,7 +116,7 @@
                         
                       </tr>
                   <% }) %>
-                  </tbody>
+                  
                 </table> 
               <% }else{ %>
                 
