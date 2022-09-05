@@ -2,8 +2,12 @@ const openNewModalById = (id) => {
     document.getElementById(id).classList.toggle('is-active');
 }
 
-const closeModalById = (id, action) => {
+const closeModalById = (id, action, event) => {
+    event.preventDefault();
     document.getElementById(id).classList.toggle('is-active');
-    //document.getElementById('create').classList.
     if(action === 'reload') window.location.reload();
+}
+
+const resetFormById = (id) => {
+    
 }

@@ -13,6 +13,26 @@ const isEmpty = (ele) => {
   }
 };
 
+const confirmApt = (event) => {
+  event.preventDefault();
+  document.getElementById('create').classList.remove('is-active')
+  document.getElementById('confirm-apt').classList.toggle('is-active')
+  const first_name = document.getElementById("first_name").value;
+  const last_name = document.getElementById("last_name").value;
+  const email = document.getElementById("email").value;
+  const contact = document.getElementById("contact").value;
+  const start_date = document.getElementById("apt_date").value;
+  const start_time = document.getElementById("apt_time");
+  const service = document.getElementById("service");
+  const selectedTime = start_time.options[start_time.selectedIndex].value;
+  document.getElementById("c_name").value = first_name + " " + last_name;
+  document.getElementById("c_email").value = email;
+  document.getElementById("c_contact").value = contact;
+  document.getElementById("c_apt_date").value = start_date;
+  document.getElementById("c_apt_time").value = selectedTime;
+  document.getElementById("c_service").value = service.options[service.selectedIndex].text
+};
+
 const createApt = (event, tenant) => {
   event.preventDefault();
   const first_name = document.getElementById("first_name").value;
@@ -34,7 +54,9 @@ const createApt = (event, tenant) => {
     start_date,
     start_time: selectedTime,
   });
-  document.getElementById('create').classList.remove('is-active')
+  //document.getElementById('create').classList.remove('is-active');
+  document.getElementById('confirm-apt').classList.remove('is-active');
+
 };
 
 //TODO create api file
@@ -49,6 +71,7 @@ const sendAptData = (appointment) => {
   fetch(url, requestOptions)
     .then((response) => response.json())
     .then((data) => {
+      //window.location.reload()
       document.getElementById('new-apt').classList.toggle('is-active')
     });
 };

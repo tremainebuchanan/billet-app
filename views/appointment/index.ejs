@@ -204,7 +204,7 @@
               <div class="modal-content" style="width: 450px">
                 <div class="box">
                   <div class="content">
-                    <form action="" method="post" autocomplete="off">
+                    <form  method="post" autocomplete="off">
                       <h1 class="subtitle is-5">New Appointment</h1>
                       <div class="columns">
                         <div class="column">
@@ -286,10 +286,10 @@
                       </div>
                       <div class="field is-grouped is-grouped-right" style="margin-top: 24px;">
                         <div class="control">
-                          <button class="button is-light" onclick="closeModal('create', event)">Cancel</button>
+                          <button class="button is-light" onclick="closeModalById('create', '', event)">Cancel</button>
                         </div>
                         <div class="control">
-                          <button class="button is-link" onclick="createApt(event, '<%= JSON.stringify(tenant)%>')">Save</button>
+                          <button class="button is-link" onclick="confirmApt(event)">Save</button>
                         </div>
                       </div>
                     </form>
@@ -298,7 +298,89 @@
                 </div>
                 
               </div>
-              <button class="modal-close is-large" aria-label="close" onclick="closeModal('create')"></button>
+              <button class="modal-close is-large" aria-label="close" onclick="closeModalById('create', '', event)"></button>
+            </div>
+
+            <div class="modal" id="confirm-apt">
+              <div class="modal-background"></div>
+              <div class="modal-content" style="width: 450px">
+                <div class="box">
+                  <div class="content">
+                    <form  method="post" autocomplete="off">
+                      <h1 class="subtitle is-5">Confirm Appointment</h1>
+                      <div class="field" >
+                        <label class="label">Customer Name</label>
+                        <div class="control">
+                          <input type="text" disabled id="c_name" class="input">
+                        </div>
+                        <!-- <p id="c_name" style="background-color: #CFD2CF; color: #000000"></p> -->
+                      </div>
+                      
+                   
+      
+                    
+        
+                      <div class="field" >
+                        <label class="label">Email:</label>
+                        <div class="control">
+                          <input type="text" disabled id="c_email" class="input">
+                        </div>
+                      </div>
+        
+                      <div class="field" >
+                        <label class="label">Contact Number:</label>
+                        <div class="control">
+                          <input type="text" disabled id="c_contact" class="input">
+                        </div>
+                      </div>
+                    
+                      <div class="columns">
+                        <div class="column">
+                          <div class="field">
+                            <label for="label" class="label">Appointment Date</label>
+                            <div class="control">
+                              <input type="text" disabled id="c_apt_date" class="input">
+                            </div>
+                           </div>
+                        </div>
+                        <div class="column">
+                          <div class="field">
+                            <label class="label">Appointment Time</label>
+                            <div class="control">
+                              <input type="text" disabled id="c_apt_time" class="input">
+                            </div>
+                          </div>
+                        </div>
+      
+                      </div>
+                    
+          
+                    
+                    
+          
+                      <div class="field">
+                        <label class="label">Service</label>
+                        <div class="control">
+                          <div class="control">
+                            <input type="text" disabled id="c_service" class="input">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="field is-grouped is-grouped-right" style="margin-top: 24px;">
+                        <div class="control">
+                          <button class="button is-light" onclick="closeModalById('confirm-apt', '', event)">Cancel</button>
+                        </div>
+                        <div class="control">
+                          <button class="button is-link" onclick="createApt(event, '<%= JSON.stringify(tenant)%>')">Confirm Appoinment</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  
+                </div>
+                
+              </div>
+              <button class="modal-close is-large" aria-label="close" onclick="closeModalById('confirm-apt', '', event)"></button>
             </div>
             
       
@@ -315,7 +397,7 @@
                   
                   <div class="field is-grouped is-grouped-right">
                     <div class="control">
-                      <button class="button is-link" onclick="closeModalById('cancel', '')">Close</button>
+                      <button class="button is-link" onclick="closeModalById('create', '', event)">Close</button>
                     </div>
                     <div class="control">
                       <button class="button is-danger" onclick="cancelAppointment()">Cancel Appointment</button>
@@ -324,7 +406,7 @@
                 </div>
       
               </div>
-              <button class="modal-close is-large" aria-label="close" onclick="closeModalById('cancel', '')"></button>
+              <button class="modal-close is-large" aria-label="close" onclick="closeModalById('create', '', event)"></button>
             </div>
 
             <div class="modal" id="new-apt">
@@ -340,14 +422,14 @@
                   
                   <div class="field is-grouped is-grouped-right">
                     <div class="control">
-                      <button class="button is-link" onclick="closeModalById('new-apt', 'reload')">Close</button>
+                      <button class="button is-link" onclick="closeModalById('create', 'reload', event)">Close</button>
                     </div>
                     
                   </div>
                 </div>
       
               </div>
-              <button class="modal-close is-large" aria-label="close" onclick="closeModalById('new-apt', 'reload')"></button>
+              <button class="modal-close is-large" aria-label="close" onclick="closeModalById('create', 'reload', event)"></button>
             </div>
       
             </div>
@@ -356,7 +438,6 @@
           
 
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
     <script src="/js/main.js"></script>
     <script src="/js/modals/main.js"></script>
   </body>
