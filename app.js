@@ -1,4 +1,4 @@
-
+const config = require('config');
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -9,20 +9,20 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const flash = require('connect-flash')
 const appointmentRouter = require('./routes/appointment');
+const sessionSecret = config.get('session_secret');
 
 const app = express();
 
-
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(sessions({
-  secret: "D>PY_,E(,HBJeuaTY5.K.<!^s^>qt@gEJ,vZE*K1y~!w#h~9rg{*J/?SWM/",
+  secret: sessionSecret,
   saveUninitialized:true,
   cookie: { maxAge: 1000 * 60 * 60 * 24 },
   resave: true
 }));
+
 app.use(flash())
 app.use(logger('dev'));
 app.use(express.json());
