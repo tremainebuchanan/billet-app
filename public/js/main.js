@@ -60,9 +60,8 @@ const createApt = (event, tenant) => {
     start_date,
     start_time: selectedTime,
   });
-  //document.getElementById('create').classList.remove('is-active');
+  document.getElementById('create').classList.remove('is-active');
   document.getElementById('confirm-apt').classList.remove('is-active');
-
 };
 
 //TODO create api file
