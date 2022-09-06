@@ -7,6 +7,7 @@ const logger = require('morgan');
 const sessions = require('express-session')
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const appointmentPageRouter = require('./routes/page');
 const flash = require('connect-flash')
 const appointmentRouter = require('./routes/appointment');
 const sessionSecret = config.get('session_secret');
@@ -14,6 +15,7 @@ const sessionSecret = config.get('session_secret');
 const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
+app.use('/libs', express.static(path.join(__dirname, 'node_modules')))
 app.set('view engine', 'ejs');
 
 app.use(sessions({
@@ -34,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/', usersRouter);
 app.use('/', appointmentRouter);
+app.use('/', appointmentPageRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

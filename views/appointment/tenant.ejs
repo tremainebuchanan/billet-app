@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Appointments</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/libs/bulma-calendar/dist/css/bulma-calendar.min.css">
+</head>
+  <body>
+    <div class="container-fluid">
+
+        <div style="margin: auto;width: 314px; height: 62px;margin-top: 48px;">
+            <img src="/images/logo.png" alt="logo" width="314" height="62">
+        </div>
+        
+        <div class="tenant-name">
+            <h1 class="title"><%=  tenant[0].name %></h1>
+        </div>
+        <div class="container" style="width: 600px;">
+            <div class="columns">
+                <!-- <div class="column is-one-third">
+                    <div class="box">
+                        Thanks for visiting <strong><%= tenant[0].name %> </strong> our scheduler to make an appointment with us.
+                    </div>
+                </div> -->
+                <div class="column">
+                    <div>
+                        <div class="notification is-primary is-light" id="notification" style="display: none;">
+                            <button class="delete" onclick="dismiss()"></button>
+                            <p id="message-text"></p>
+                          </div>
+                          <!-- <h1 class="title is-4">Book Appointment</h1>
+                          <p>Welcome to <%= tenant[0].name %> </p> -->
+            
+                        <div class="box">
+                            <button onclick="saveApt(event, '<%= JSON.stringify(tenant[0].id)%>')">Save</button>
+                              <h1 class="title is-1">Book an Appointment</h1>
+
+                            <form action="" method="post" autocomplete="off">
+                              <input type="date" id="my-element">
+                                <!-- <p style="margin-bottom:12px;font-size: 18px;font-weight: bold;">Client</p>
+                               <hr style="margin-top:0;"> -->
+                                <div class="columns">
+                                  <div class="column">
+                                    <div class="field" >
+                                      <label class="label">First Name</label>
+                                      <div class="control has-icons-left" >
+                                        <input class="input" type="text" id="first_name"  >
+                                        <span class="icon is-small is-left">
+                                            <i class="fa-solid fa-user"></i>
+                                          </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="column">
+                                    <div class="field" >
+                                      <label class="label">Last Name</label>
+                                      <div class="control has-icons-left" >
+                                        <input class="input" type="text" id="last_name" >
+                                        <span class="icon is-small is-left">
+                                            <i class="fa-solid fa-user"></i>
+                                          </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Email</label>
+                                    <div class="control has-icons-left" >
+                                      <input class="input" type="email" id="email">
+                                      <span class="icon is-small is-left">
+                                        <i class="fas fa-envelope"></i>
+                                      </span>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="field" >
+                                    <label class="label">Contact Number</label>
+                                    <div class="control has-icons-left" >
+                                      <input class="input" type="text" id="contact">
+                                      <span class="icon is-small is-left">
+                                        <i class="fa-solid fa-phone"></i>
+                                      </span>
+                                    </div>
+                                  </div>
+            
+                              <fieldset style="margin-bottom:32px;">
+                               <!-- <p style="margin-bottom:12px;font-size: 18px;font-weight: bold;">Appointment</p>
+                               <hr style="margin-top:0;"> -->
+                                
+                                <div class="columns">
+                                  <div class="column">
+                                    <!-- <div class="field">
+                                      <label for="label" class="label">Date</label>
+                                      <div class="control" id="start_date">
+                                          <input type="date" class="input" name="" id="apt_date">
+                                      </div>
+                                     </div> -->
+                                  </div>
+                                  <div class="column">
+                                    <div class="field">
+                                      <label class="label">Time</label>
+                                      <div class="control">
+                                        <div class="select">
+                                          <select id="apt_time">
+                                            <% times.forEach((time)=> { %>
+                                                    <option value="<%= time%>"><%= time%></option>
+                                          <% }) %>
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                    
+                                </div>
+                              
+                    
+                              
+                              
+                    
+                                <div class="field">
+                                  <label class="label">Type of Service</label>
+                                  <div class="control">
+                                    <div class="select">
+                                      <select id="service">
+                                        <% services.forEach((service)=> { %>
+                                            
+                                                
+                                                <option value="<%= service.id%>"><%= service.title%></option>
+                                            
+                                         
+                                      <% }) %>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </fieldset>
+                              
+                             
+                    
+                              
+                    
+                              
+                              
+                                
+                                
+                              </form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+         
+      
+    
+
+    </div>
+    <script src="/libs/bulma-calendar/dist/js/bulma-calendar.min.js"></script>
+    <script>
+      const options = {
+            displayMode: 'inline',
+            color: 'dark',
+            showHeader: false,
+            showFooter: false
+        }
+      const calendars = bulmaCalendar.attach('[type="date"]', options);
+        const element = document.querySelector('#my-element');
+        let start_date;
+        if (element) {
+            // bulmaCalendar instance is available as element.bulmaCalendar
+            element.bulmaCalendar.on('select', datepicker => {
+                start_date = datepicker.data.value();
+            });
+        }
+
+        const saveApt = (event, tenant) => {
+        event.preventDefault();
+        
+        const first_name = document.getElementById("first_name").value;
+        const last_name = document.getElementById("last_name").value;
+        const email = document.getElementById("email").value;
+        const contact = document.getElementById("contact").value;
+        
+        
+        const start_time = document.getElementById("apt_time");
+        const service = document.getElementById("service");
+        const selectedService = service.options[service.selectedIndex].value;
+        const selectedTime = start_time.options[start_time.selectedIndex].value;
+        const apt = {
+          first_name,
+          last_name,
+          email,
+          contact,
+          tenant_id: JSON.parse(tenant),
+          service: selectedService,
+          start_date,
+          start_time: selectedTime,
+        };
+        console.log(apt)
+        sendAptData(apt);
+      }
+
+      const sendAptData = (appointment) => {
+  const url = "/api/appointments";
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(appointment),
+  };
+  fetch(url, requestOptions)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      //window.location.reload()
+      //document.getElementById('new-apt').classList.toggle('is-active')
+    });
+};
+        
+       
+    </script>
+  </body>
+</html>

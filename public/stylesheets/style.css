@@ -10,6 +10,16 @@
   margin-top: 80px;
 }
 
+.tenant-name{
+  text-align: center;
+  margin-top: 24px;
+  margin-bottom: 48px;
+}
+
+.tenant-name > h1{
+  color: #333;
+}
+
 
 
 
