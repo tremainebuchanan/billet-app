@@ -78,10 +78,33 @@
             <div style="margin: 48px 24px">
               <div class="level">
                 <div class="level-left">
-                  <h1 class="title is-4">Appointments</h1>
+                  <div class="level-item">
+                    <h1 class="title is-4">Appointments</h1>
+                  </div>
+                 
+                  
                 </div>
                 <div class="level-right">
-                  <button class="button is-link" onclick="openNewModalById('create')">New Appointment</button>
+                  <div class="level-item">
+                    
+                    <div class="field is-horizontal">
+                      
+                      <div class="control">
+                        <div class="select">
+                          <select id="filter" onchange="filter('<%= tenant%>')">
+                            <option value="" disabled selected>Filter by</option>
+                            <option value="all">All</option>
+                            <option value="yesterday">Yesterday</option>  
+                            <option value="today">Today</option>  
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="level-item">
+                    <button class="button is-link" onclick="openNewModalById('create')">New Appointment</button>
+                  </div>
+                  
                 </div>
               </div>
               
@@ -133,75 +156,7 @@
             
               
       
-            <div class="modal" id="edit">
-              <div class="modal-background"></div>
-              <div class="modal-content" style="width: 450px">
-                <div class="box">
-                  <div class="field" >
-                    <label class="label">Customer Name</label>
-                    <div class="control" id="">
-                      <!-- <input class="input is-static"" type="text" readonly> -->
-                    </div>
-                  </div>
-                
-                  
-                 <div class="field">
-                  <label for="label" class="label">Date</label>
-                  <div class="control" id="start_date">
-                      <!-- <input type="date" class="input" name="" id=""> -->
-                  </div>
-                 </div>
-      
-                 <div class="field">
-                  <label for="label" class="label">Time</label>
-                  <div class="control" id="start_time">
-                      <!-- <input type="time" class="input" name="" id=""> -->
-                  </div>
-                 </div>
-                  
-                  <div class="field">
-                    <label class="label">Status</label>
-                    <div class="control">
-                      <div class="select">
-                        <select>
-                          <% times.forEach((time)=> { %>
-                            <option value="<%= time%>"><%= time%></option>
-                        <% }) %>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-      
-                  <div class="field">
-                    <label class="label">Service</label>
-                    <div class="control">
-                      <div class="select">
-                        <select>
-                          <option>Select dropdown</option>
-                          <option>With options</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  
-               
-                  
-                  
-                 
-                  
-                  <div class="field is-grouped is-grouped-right">
-                    <div class="control">
-                      <button class="button is-link" onclick="closeModal('edit')">Cancel</button>
-                    </div>
-                    <div class="control">
-                      <button class="button is-link is-light" onclick="closeModal('edit')">Update Appointment</button>
-                    </div>
-                  </div>
-                </div>
-               
-              </div>
-              <button class="modal-close is-large" aria-label="close" onclick="closeModal(this)"></button>
-            </div>
+            
             
             <div class="modal" id="create">
               <div class="modal-background"></div>

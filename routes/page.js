@@ -11,7 +11,13 @@ router.get('/pages', async(req, res, next)=>{
     const result = await knex.knex('tenants').where({id: q.tenant_id});
     const services = getServiceList();
     const times = buildAptTime();
-    res.render('appointment/tenant', { name: session.name, tenant: result, times: times, services: services});
+    if(q.tenant_id !== "" && q.booked === 'true'){
+        return res.render('appointment/tenant-booked', { tenant: result});
+    }else{
+        return res.render('appointment/tenant', { name: session.name, tenant: result, times: times, services: services});
+    }
+    
+    
 });
 
 module.exports = router;

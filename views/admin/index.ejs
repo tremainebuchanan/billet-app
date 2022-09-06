@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Appointments</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="/js/libs/table-sort.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+
+        <nav class="navbar is-fixed-top is-light" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="#">
+                <img src="/images/logo.png">
+              </a>
+          
+              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+            </div>
+          
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <!-- <a class="navbar-item">
+                  Appointments
+                </a> -->
+          
+               
+          
+                
+              </div>
+          
+              <div class="navbar-end">
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link">
+                   Settings
+                  </a>
+          
+                  <div class="navbar-dropdown">
+                    <a class="navbar-item">
+                      Profile
+                    </a>
+                   
+                    <hr class="navbar-divider">
+                    <a class="navbar-item" href="/logout">
+                      Logout
+                    </a>
+                  </div>
+                </div>
+                <div class="navbar-item">
+                  <p>Admin</p>
+                </div>
+               
+                <div class="navbar-item">
+                  <div class="buttons">
+                   
+                    <a class="button is-light" href="/logout">
+                      Log out
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+          <div class="content" style="margin-top: 80px;">
+            <div style="width: 500px; margin:auto">
+              <div class="notification is-primary is-light" id="notification" style="display: none;">
+                <button class="delete" onclick="dismiss()"></button>
+                <p id="message-text"></p>
+              </div>
+            </div>
+            <div style="margin: 48px 24px">
+              <div class="level">
+                <div class="level-left">
+                  <h1 class="title is-4">Tenants</h1>
+                </div>
+                <div class="level-right">
+                  <a class="button is-link" href="/admin/tenants/create">New Tenant</a>
+                </div>
+              </div>
+              
+              <div style="width: 500px; margin:auto">
+                <div class="notification is-primary is-light" id="notification" style="display: none;">
+                  <button class="delete" onclick="dismiss()"></button>
+                  <p id="message-text"></p>
+                </div>
+              </div>
+             
+              <% if (tenants.length > 0) { %>
+                <table class="table is-fullwidth is-striped table-sort table-arrows" style="margin-top: 48px;" id="tenants">
+                  <tr>
+                    <th>Name</th>
+                    
+                  </tr>
+                  
+                    <% tenants.forEach((tenant)=> { %>
+                        <tr>
+                            <td><%= tenant.name %> </td>
+                        </tr>
+                  <% }) %>
+                  
+                </table> 
+              <% }else{ %>
+                
+                  <div class="notification is-light" id="notification">
+                    <p id="message-text">There are <strong><%= tenants.length %></strong> tenants.</p>
+                    
+                  </div>
+               
+                <%}%>
+            
+              
+      
+            
+      
+            </div>
+          </div>
+      
+          
+
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/modals/main.js"></script>
+  </body>
+</html>

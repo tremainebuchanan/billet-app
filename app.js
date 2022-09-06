@@ -10,6 +10,7 @@ const usersRouter = require('./routes/users');
 const appointmentPageRouter = require('./routes/page');
 const flash = require('connect-flash')
 const appointmentRouter = require('./routes/appointment');
+const adminRouter = require('./routes/admin');
 const sessionSecret = config.get('session_secret');
 
 const app = express();
@@ -37,6 +38,7 @@ app.use('/', indexRouter);
 app.use('/', usersRouter);
 app.use('/', appointmentRouter);
 app.use('/', appointmentPageRouter);
+app.use('/', adminRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

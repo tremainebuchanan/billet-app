@@ -22,7 +22,7 @@ router.post('/api/appointments', async (req, res, next) => {
     const tenant = await knex.knex('tenants').select().where({id: request.tenant_id});
     const tenantJSON = JSON.parse(JSON.stringify(tenant[0]));
     const id = uuidv4();
-    const apt = await knex.knex('appointments').insert({
+    const appointment = {
       id,
       first_name: request.first_name,
       last_name: request.last_name,
@@ -33,7 +33,9 @@ router.post('/api/appointments', async (req, res, next) => {
       start_date: moment(request.start_date).format("YYYY-MM-DD"),
       start_time: request.start_time,
       status: 'Pending Confirmation'
-    });
+    };
+
+    const apt = await knex.knex('appointments').insert(appointment);
     const domain = "http://localhost:3001";
     const configs = {
       to: request.email,
@@ -53,11 +55,22 @@ router.post('/api/appointments', async (req, res, next) => {
 
 router.get('/appointments/:id', async(req, res, next) => {
   session = req.session;
+  const q = req.query;
+  
+
   if(session.user_id){
-    const list = await knex.knex('appointments').where({tenant_id: req.params.id});
+    let list;
+    if(Object.keys(req.query).length === 0 || req.query.filter.toLowerCase() === 'today'){
+      console.log('fetching today appointments')
+      list = await knex.knex('appointments').where({tenant_id: req.params.id}).andWhere('start_date', moment().format('YYYY-MM-DD'));
+    }else if(req.query.filter.toLowerCase() === 'yesterday'){
+      list = await knex.knex('appointments').where({tenant_id: req.params.id}).andWhere('start_date', moment().subtract(1, 'days').format('YYYY-MM-DD'));
+    }else if(req.query.filter.toLowerCase() === 'all'){
+      list = await knex.knex('appointments').where({tenant_id: req.params.id});
+    }
     const aptTimes = buildAptTime();
     const services = getServiceList();
-  res.render('appointment/index', { appointments: list, moment: moment, name: session.name, times: aptTimes, services, tenant: req.params.id, getStatusColor: getStatusColor });
+    res.render('appointment/index', { appointments: list, moment: moment, name: session.name, times: aptTimes, services, tenant: req.params.id, getStatusColor: getStatusColor });
   }else{
     return res.redirect('/login');
   }

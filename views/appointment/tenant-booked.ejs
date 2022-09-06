@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Wide Smiles Dental | Book Appointment</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css"
+      integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="/libs/bulma-calendar/dist/css/bulma-calendar.min.css"
+    />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div style="margin: auto; width: 314px; height: 62px; margin-top: 48px">
+        <img src="/images/logo.png" alt="logo" width="314" height="62" />
+      </div>
+
+      <div class="box" style="width: 400px;margin: 48px auto">
+        <div class="content">
+            <h3>Appointment booked</h1>
+            <p>Your appointment has been successfully booked. An email was sent to the email provided providing instruction on how to confirm your appointment.</p>
+            <p>Click <strong><a href="/pages?tenant_id=<%= tenant[0].id %> ">here</a></strong> to book another appointment.</p>
+        </div>
+      </div>
+      
+    </div>
+   
+  </body>
+</html>

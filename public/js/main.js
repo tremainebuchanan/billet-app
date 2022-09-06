@@ -1,3 +1,9 @@
+const filter = (tenant) => {
+  const filterBy = document.getElementById("filter");
+  const selectedFilter = filterBy.options[filterBy.selectedIndex].value;
+  console.log(selectedFilter)
+  window.location.href = '/appointments/' + tenant + '?filter=' + selectedFilter;
+}
 const dismiss = (ele) => {
   document.getElementById("notification").style.display = "none";
 };
