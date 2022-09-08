@@ -1,7 +1,10 @@
+
+
+document.getElementById('start_date').value = moment().format("YYYY-MM-DD");
+
 const filter = (tenant) => {
   const filterBy = document.getElementById("filter");
   const selectedFilter = filterBy.options[filterBy.selectedIndex].value;
-  console.log(selectedFilter);
   window.location.href =
     "/appointments/" + tenant + "?filter=" + selectedFilter;
 };
@@ -11,14 +14,7 @@ const dismiss = (ele) => {
 
 // TODO write validation in own file
 
-const isEmpty = (ele) => {
-  if (ele.value === "") {
-    ele.classList.add("is-danger");
-  } else {
-    ele.classList.remove("is-danger");
-    ele.classList.add("is-success");
-  }
-};
+
 
 const view = (appointment) => {
   console.log(appointment)
@@ -35,23 +31,29 @@ const view = (appointment) => {
 
 const confirmApt = (event) => {
   event.preventDefault();
-  document.getElementById("create").classList.remove("is-active");
-  document.getElementById("confirm-apt").classList.toggle("is-active");
   const first_name = document.getElementById("first_name").value;
   const last_name = document.getElementById("last_name").value;
   const email = document.getElementById("email").value;
   const contact = document.getElementById("contact").value;
-  const start_date = document.getElementById("apt_date").value;
+  const start_date = document.getElementById("start_date").value;
   const start_time = document.getElementById("apt_time");
   const service = document.getElementById("service");
   const selectedTime = start_time.options[start_time.selectedIndex].value;
-  document.getElementById("c_name").value = first_name + " " + last_name;
-  document.getElementById("c_email").value = email;
-  document.getElementById("c_contact").value = contact;
-  document.getElementById("c_apt_date").value = start_date;
-  document.getElementById("c_apt_time").value = selectedTime;
-  document.getElementById("c_service").value =
-  service.options[service.selectedIndex].text;
+  if(first_name === "" || last_name === "" || email ==="" || contact===""){
+    document.getElementById("validation-message").innerHTML = "Please review the errors below.";
+    return;
+  }else{
+    document.getElementById("create").classList.remove("is-active");
+    document.getElementById("confirm-apt").classList.toggle("is-active");
+    document.getElementById("c_name").value = first_name + " " + last_name;
+    document.getElementById("c_email").value = email;
+    document.getElementById("c_contact").value = contact;
+    document.getElementById("c_apt_date").value = start_date;
+    document.getElementById("c_apt_time").value = selectedTime;
+    document.getElementById("c_service").value =
+    service.options[service.selectedIndex].text;
+  }
+  
 };
 
 const createApt = (event, tenant) => {
@@ -60,7 +62,7 @@ const createApt = (event, tenant) => {
   const last_name = document.getElementById("last_name").value;
   const email = document.getElementById("email").value;
   const contact = document.getElementById("contact").value;
-  const start_date = document.getElementById("apt_date").value;
+  const start_date = document.getElementById("start_date").value;
   const start_time = document.getElementById("apt_time");
   const service = document.getElementById("service");
   const selectedService = service.options[service.selectedIndex].value;

@@ -161,6 +161,7 @@
                   <div class="content">
                     <form  method="post" autocomplete="off">
                       <h1 class="subtitle is-5">New Appointment</h1>
+                      <p style="color:hsl(348, 86%, 61%)" id="validation-message"></p>
                       <div class="columns">
                         <div class="column">
                           <div class="field" >
@@ -174,7 +175,7 @@
                           <div class="field" >
                             <label class="label">Last Name</label>
                             <div class="control" >
-                              <input class="input" type="text" id="last_name">
+                              <input class="input" type="text" id="last_name" onblur="isEmpty(this)">
                             </div>
                           </div>
                         </div>
@@ -186,14 +187,14 @@
                       <div class="field" >
                         <label class="label">Email</label>
                         <div class="control" >
-                          <input class="input" type="email" id="email">
+                          <input class="input" type="email" id="email" onblur="isEmpty(this)">
                         </div>
                       </div>
         
                       <div class="field" >
                         <label class="label">Contact Number</label>
                         <div class="control" >
-                          <input class="input" type="text" id="contact">
+                          <input class="input" type="text" id="contact" onblur="isEmpty(this)">
                         </div>
                       </div>
                     
@@ -201,8 +202,8 @@
                         <div class="column">
                           <div class="field">
                             <label for="label" class="label">Appointment Date</label>
-                            <div class="control" id="start_date">
-                                <input type="date" class="input" name="" id="apt_date">
+                            <div class="control" id="start_d">
+                                <input type="date" class="input" name="" id="start_date">
                             </div>
                            </div>
                         </div>
@@ -528,5 +529,6 @@
     </div>
     <script src="/js/main.js"></script>
     <script src="/js/modals/main.js"></script>
+    <script src="/js/validation.js"></script>
   </body>
 </html>
