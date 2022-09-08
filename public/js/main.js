@@ -1,9 +1,10 @@
 const filter = (tenant) => {
   const filterBy = document.getElementById("filter");
   const selectedFilter = filterBy.options[filterBy.selectedIndex].value;
-  console.log(selectedFilter)
-  window.location.href = '/appointments/' + tenant + '?filter=' + selectedFilter;
-}
+  console.log(selectedFilter);
+  window.location.href =
+    "/appointments/" + tenant + "?filter=" + selectedFilter;
+};
 const dismiss = (ele) => {
   document.getElementById("notification").style.display = "none";
 };
@@ -19,10 +20,23 @@ const isEmpty = (ele) => {
   }
 };
 
+const view = (appointment) => {
+  console.log(appointment)
+  document.getElementById('view').classList.toggle('is-active');
+  const apt = JSON.parse(appointment);
+  document.getElementById("v_status").value = apt.status;
+  document.getElementById("v_name").value = apt.first_name + " " + apt.last_name;
+  document.getElementById("v_email").value = apt.email;
+  document.getElementById("v_contact").value = apt.contact;
+  document.getElementById("v_apt_date").value = moment(apt.start_date).format("ddd D MMM YYYY");
+  document.getElementById("v_apt_time").value = apt.start_time;
+  document.getElementById("v_service").value = apt.service;
+}
+
 const confirmApt = (event) => {
   event.preventDefault();
-  document.getElementById('create').classList.remove('is-active')
-  document.getElementById('confirm-apt').classList.toggle('is-active')
+  document.getElementById("create").classList.remove("is-active");
+  document.getElementById("confirm-apt").classList.toggle("is-active");
   const first_name = document.getElementById("first_name").value;
   const last_name = document.getElementById("last_name").value;
   const email = document.getElementById("email").value;
@@ -36,7 +50,8 @@ const confirmApt = (event) => {
   document.getElementById("c_contact").value = contact;
   document.getElementById("c_apt_date").value = start_date;
   document.getElementById("c_apt_time").value = selectedTime;
-  document.getElementById("c_service").value = service.options[service.selectedIndex].text
+  document.getElementById("c_service").value =
+  service.options[service.selectedIndex].text;
 };
 
 const createApt = (event, tenant) => {
@@ -60,8 +75,8 @@ const createApt = (event, tenant) => {
     start_date,
     start_time: selectedTime,
   });
-  document.getElementById('create').classList.remove('is-active');
-  document.getElementById('confirm-apt').classList.remove('is-active');
+  document.getElementById("create").classList.remove("is-active");
+  document.getElementById("confirm-apt").classList.remove("is-active");
 };
 
 //TODO create api file
@@ -76,54 +91,57 @@ const sendAptData = (appointment) => {
   fetch(url, requestOptions)
     .then((response) => response.json())
     .then((data) => {
-      //window.location.reload()
-      document.getElementById('new-apt').classList.toggle('is-active')
+      document.getElementById("new-apt").classList.toggle("is-active");
     });
 };
 
-const openModal = (modalId, appointmentId) => {
+const openModal = async (modalId, appointmentId) => {
   const id = JSON.parse(appointmentId);
-  getAppointmentById(id);
+  const data = await getAppointmentById(id);
+  populateModal(modalId, data);
   document.getElementById(modalId).classList.toggle("is-active");
 };
 
-const getAppointmentById = (id) => {
+const getAppointmentById = async (id) => {
   const url = `/api/appointments/${id}`;
-  fetch(url)
+  return await fetch(url)
     .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      const id = data.id;
-      const name = data.first_name + " " + data.last_name;
-      const date = data.start_date;
-      const time = data.start_time;
-      addCancelMessage(id, name, date, time);
-    });
+    .then((data) => data);
 };
 
-const addCancelMessage = (id, name, date, time) => {
-  let message = document.getElementById("cancel-message");
-  const [d, t] = formatDate(new Date(date)).split(" ");
-  message.innerHTML = `Are you sure want to <strong>cancel</strong> appointment for <strong>${name}</strong> on <strong>${moment(
-    date
-  ).format("dddd, MMMM D")}</strong> at <strong>${time}</strong>?`;
-  message.dataset.id = id;
+const populateModal = (modalId, appointment) => {
+  let messageId;
+  let messageBody;
+  const d = new Date(appointment.start_date);
+  if(modalId == 'cancel'){
+    messageId = 'cancel-message';
+    messageBody = `Are you sure want to <strong>cancel</strong> appointment for <strong>${appointment.first_name} ${appointment.last_name}</strong> on <strong>${moment(d).format('dddd, D MMMM YYYY')}</strong> at <strong>${appointment.start_time}</strong>?`;
+  }
+  if(modalId == 'change-status'){
+    messageId = 'change-status-message';
+    messageBody = `Are you sure want to <strong>confirm</strong> appointment for <strong>${appointment.first_name} ${appointment.last_name}</strong> on <strong>${moment(d).format('dddd, D MMMM YYYY')}</strong> at <strong>${appointment.start_time}</strong>?`;
+  } 
+  let message = document.getElementById(messageId);
+  message.innerHTML = messageBody;
+  message.dataset.id = appointment.id;
 };
 
-const cancelAppointment = () => {
-  const message = document.getElementById("cancel-message");
+
+const updateAppointmentStatus = (status, modalId) => {
+  let message;
+  if(modalId == 'cancel') message = document.getElementById("cancel-message");
+  if(modalId == 'change-status') message = document.getElementById("change-status-message");
   const id = message.dataset["id"];
   const url = `/api/appointments/${id}`;
   const requestOptions = {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: "Cancelled"}),
+    body: JSON.stringify({ status: status }),
   };
   fetch(url, requestOptions)
     .then((response) => response.json())
     .then((data) => {
-      document.getElementById("cancel").classList.toggle("is-active");
-      console.log(data);
+      document.getElementById(modalId).classList.toggle("is-active");
       window.location.reload();
     });
 };
@@ -225,7 +243,7 @@ const sortTable = () => {
     rows = table.rows;
     /*Loop through all table rows (except the
     first, which contains table headers):*/
-    for (i = 1; i < (rows.length - 1); i++) {
+    for (i = 1; i < rows.length - 1; i++) {
       //start by saying there should be no switching:
       shouldSwitch = false;
       /*Get the two elements you want to compare,
@@ -246,4 +264,4 @@ const sortTable = () => {
       switching = true;
     }
   }
-}
+};

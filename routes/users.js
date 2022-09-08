@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const argon2 = require('argon2');
 const knex = require('../config/knex');
+const config = require('config');
 let session = require('express-session');
 
 router.post('/auth', async (req, res, next) => {
@@ -26,9 +27,11 @@ router.post('/auth', async (req, res, next) => {
 
 router.get('/login', (req, res, next) => {
     session = req.session;
-    const message = req.flash('info')
+    const message = req.flash('info');
+    const appName = config.get('APP_NAME');
+    const title = `Login | ${appName}`
     if(session.user_id)return res.redirect(`/appointments/${session.tenant_id}`)
-    return res.render('login/login', {info: message});
+    return res.render('login/login', {title: title, info: message});
 });
 
 router.get('/logout', async (req, res, next) => {
