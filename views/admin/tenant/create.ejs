@@ -2,139 +2,727 @@
 <html>
   <head>
     <title>Tenants | Create</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="/js/libs/table-sort.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css"
+      integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
     <div class="container-fluid">
-
-        <nav class="navbar is-fixed-top is-light" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-              <a class="navbar-item" href="#">
-                <img src="/images/logo.png">
-              </a>
-          
-              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-              </a>
-            </div>
-          
-            <div id="navbarBasicExample" class="navbar-menu">
-              <div class="navbar-start">
-                <!-- <a class="navbar-item">
-                  Appointments
-                </a> -->
-          
-               
-          
+      <%- include('../../partials/admin/nav') %> 
+      <div class="content" style="margin-top: 80px; margin-bottom: 48px">
+        <div style="width: 860px; margin: auto">
+          <form action="" autocomplete="off" name="createTenant">
+            <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <h1 class="title is-4">Create Tenant</h1>
+                </div>
                 
               </div>
-          
-              <div class="navbar-end">
-                <div class="navbar-item has-dropdown is-hoverable">
-                  <a class="navbar-link">
-                   Settings
-                  </a>
-          
-                  <div class="navbar-dropdown">
-                    <a class="navbar-item">
-                      Profile
-                    </a>
-                   
-                    <hr class="navbar-divider">
-                    <a class="navbar-item" href="/logout">
-                      Logout
-                    </a>
-                  </div>
-                </div>
-                <div class="navbar-item">
-                  <p>Admin</p>
-                </div>
-               
-                <div class="navbar-item">
-                  <div class="buttons">
-                   
-                    <a class="button is-light" href="/logout">
-                      Log out
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nav>
-          <div class="content" style="margin-top: 80px;">
-            <h1 class="title is-1">Create</h1>
-            <button class="button" onclick="addFields()">Add Service</button>
-            <button class="button" onclick="removeFields()">Remove Service</button>
-            <div id="fields">
-                <div class="field">
+              <div class="level-right">
+                <div class="level-item">
+                  <div class="field is-grouped">
                     <div class="control">
-                        <input type="text" class="input" placeholder="First Field">
+                      <a href="/admin" class="button is-ghost">Cancel</a>
                     </div>
+                    <div class="control">
+                      <button class="button is-link" onclick="process(event)">Process</button>
+                    </div>
+                  </div>
+                  
                 </div>
+              </div>
             </div>
-            <!-- <div style="width: 500px; margin:auto">
-              <div class="notification is-primary is-light" id="notification" style="display: none;">
-                <button class="delete" onclick="dismiss()"></button>
-                <p id="message-text"></p>
-              </div>
-            </div> -->
-            <!-- <div style="margin: 48px 24px">
-              <div class="level">
-                <div class="level-left">
-                  <h1 class="title is-4">Tenants</h1>
+            <div class="box">
+              <h2 class="subtitle is-5">Business Details</h2>
+              <hr>
+              <!-- <h1 class="title is-3">Create</h1> -->
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Name</label>
                 </div>
-                <div class="level-right">
-                  <button class="button is-link" onclick="openNewModalById('create')">New Tenant</button>
-                </div>
-              </div>
-              
-              <div style="width: 500px; margin:auto">
-                <div class="notification is-primary is-light" id="notification" style="display: none;">
-                  <button class="delete" onclick="dismiss()"></button>
-                  <p id="message-text"></p>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded has-icons-left">
+                      <input class="input" type="text" name="entity_name"/>
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                      </span>
+                    </p>
+                  </div>
                 </div>
               </div>
-             
-              
-            
-              
-      
-            
-      
-            </div> -->
-          </div>
-      
-          
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Email</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded has-icons-left">
+                      <input class="input" type="text" name="entity_email" />
+                      <span class="icon is-small is-left">
+                        <i class="fa-solid fa-envelope"></i>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Primary Contact</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded has-icons-left">
+                      <input class="input" type="text" name="primary_business_contact" />
+                      <span class="icon is-small is-left">
+                        <i class="fa-solid fa-phone"></i>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Tag Line</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded has-icons-left">
+                      <input class="input" type="text" name="tagline" />
+                      <span class="icon is-small is-left">
+                        <i class="fa-solid fa-tag"></i>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Description</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <textarea
+                        class="textarea"
+                        name="description"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Street Address</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded has-icons-left">
+                      <input class="input" type="text" name="street_address" />
+                      <span class="icon is-small is-left">
+                        <i class="fa-solid fa-location-dot"></i>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Address Line</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded has-icons-left">
+                      <input class="input" type="text" name="address_line" />
+                      <span class="icon is-small is-left">
+                        <i class="fa-solid fa-location-dot"></i>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Town/City</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded has-icons-left">
+                      <input class="input" type="text" name="town_city" />
+                      <span class="icon is-small is-left">
+                        <i class="fa-solid fa-location-dot"></i>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Parish</label>
+                </div>
+                <div class="field-body">
+                  <div class="field is-narrow">
+                    <div class="control">
+                      <div class="select is-fullwidth">
+                        <select name="parish">
+                          <option value="Kingston">Kingston</option>
+                          <option value="St Andrew">Saint Andrew</option>
+                          <option value="St Thomas">Saint Thomas</option>
+                          <option value="Portland">Portland</option>
+                          <option value="St Mary">Saint Mary</option>
+                          <option value="St Ann">Saint Ann</option>
+                          <option value="Trelawny">Trelawny</option>
+                          <option value="St James">St James</option>
+                          <option value="Hanover">Hanover</option>
+                          <option value="Westmoreland">Westmoreland</option>
+                          <option value="St Elizabeth">Saint Elizabeth</option>
+                          <option value="Manchester">Manchester</option>
+                          <option value="Clarendon">Clarendon</option>
+                          <option value="St Catherine">Saint Catherine</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box">
+              <h2 class="subtitle is-5">Administrator</h2>
+              <hr>
+              <!-- <h1 class="title is-3">Create</h1> -->
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Email</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded has-icons-left">
+                      <input class="input" type="text" name="admin_email" />
+                      <span class="icon is-small is-left">
+                        <i class="fa-solid fa-envelope"></i>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">First Name</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded has-icons-left">
+                      <input class="input" type="text" name="admin_first_name" />
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Last Name</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded has-icons-left">
+                      <input class="input" type="text" name="admin_last_name" />
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box">
+              <h2 class="subtitle is-5">Additional Phone Numbers</h2>
+              <hr>
+              <div class="columns">
+                <div class="column">
+                  <div id="fields-contacts">
+                    <div class="field is-grouped">
+                      <div class="control is-expanded">
+                        <input type="text" class="input" name="contact" />
+                      </div>
+                      <div class="field is-grouped">
+                        <div class="control">
+                          <button
+                          class="button is-link is-outlined"
+                            onclick="addFields(event, 'contact', 'fields-contacts')"
+                          >
+                            Add
+                          </button>
+                        </div>
+                        <div class="control">
+                          <button
+                          class="button is-danger is-outlined"
+                            onclick="remove(event, 'fields-contacts')"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box">
+              <h2 class="subtitle is-5">Services Offered</h2>
+              <hr>
+              <div class="columns">
+                <div class="column">
+                  <div id="fields-service">
+                    <div class="field is-grouped">
+                      <div class="control is-expanded">
+                        <input type="text" class="input" name="service" />
+                      </div>
+                      <div class="field is-grouped">
+                        <div class="control">
+                          <button
+                          class="button is-link is-outlined"
+                            onclick="addFields(event, 'service', 'fields-service')"
+                          >
+                            Add
+                          </button>
+                        </div>
+                        <div class="control">
+                          <button
+                          class="button is-danger is-outlined"
+                            onclick="remove(event, 'fields-service')"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box">
+              <h2 class="subtitle is-5">Social Media Links</h2>
+              <hr>
+              <div class="columns">
+                <div class="column">
+                  <div id="fields-social">
+                    <div class="field is-grouped">
+                      <div class="control is-expanded">
+                        <input type="text" class="input" name="social" />
+                      </div>
+                      <div class="field is-grouped">
+                        <div class="control">
+                          <button
+                          class="button is-link is-outlined"
+                            onclick="addFields(event, 'social','fields-social')"
+                          >
+                            Add
+                          </button>
+                        </div>
+                        <div class="control">
+                          <button
+                          class="button is-danger is-outlined"
+                            onclick="remove(event, 'fields-social')"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box">
+              <h2 class="subtitle is-5">Opening Hours</h2>
+              <hr>
+  
+              <div id="fields-openinghours">
+                <div class="columns">
+                  <div class="column">
+                    <div class="control">
+                      <div class="select is-fullwidth">
+                        <select name="dayofweek">
+                          <option value="Sundays">Sundays</option>
+                          <option value="Mondays">Mondays</option>
+                          <option values="Tuesdays">Tuesdays</option>
+                          <option value="Wednesdays">Wednesdays</option>
+                          <option value="Thursdays">Thursdays</option>
+                          <option value="Fridays">Fridays</option>
+                          <option value="Saturdays">Saturdays</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <div class="field">
+                      <div class="control">
+                        <input type="text" class="input" name="open_at" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <div class="field">
+                      <div class="control">
+                        <input type="text" class="input" name="closed_at" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <div class="field is-grouped">
+                      
+                      <div class="control">
+                        <button class="button is-link is-outlined" onclick="addOpeningHourFields(event)">
+                          Add
+                        </button>
+                      </div>
+                      <div class="control">
+                        <button
+                          class="button is-outlined is-danger"
+                          onclick="removeOpeningHoursFields(event)"
+                        >
+                          Remove
+                        </button>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+           
+          </form>
 
+          <div class="modal" id="success-modal">
+            <div class="modal-background"></div>
+            <div class="modal-content" style="width: 450px">
+              <div class="box">
+                <div class="content">
+                  
+                  <p style="margin-bottom: 24px;">Tenant successfully created.</p>
+                </div>
+                
+               
+                
+                <div class="field is-grouped is-grouped-right">
+                  <div class="control">
+                    <button class="button is-link" onclick="closeModalById('success-modal')">Close</button>
+                  </div>
+                  
+                </div>
+              </div>
+    
+            </div>
+            <button class="modal-close is-large" aria-label="close" onclick="closeModalById('success-modal')"></button>
+          </div>
+         
+        </div>
+      </div>
     </div>
     <script>
-        const addFields = () => {
-            const fieldList = document.getElementById('fields');
-            let newField = document.createElement('input');
-            let divField = document.createElement('div')
-            let divControl = document.createElement('div')
-            divField.setAttribute('class', 'field')
-            divControl.setAttribute('class', 'control')
-            newField.setAttribute('type', 'text');
-            newField.setAttribute('class', 'input');
-            newField.setAttribute('placeholder', 'Another field')
-            divControl.appendChild(newField)
-            divField.appendChild(divControl)
-            fieldList.appendChild(divField);
+      const closeModalById = (id) => {
+        document.getElementById(id).classList.toggle('is-active');
+      }
+      const process = (event) => {
+        event.preventDefault();
+        
+        const form = document.forms['createTenant'];
+        const entity_name = form.elements['entity_name'];
+        const entity_email = form.elements['entity_email'];
+        const primary_contact = form.elements['primary_business_contact']
+        const tagline = form.elements['tagline'];
+        const description = form.elements['description']
+        const street_address = form.elements['street_address']
+        const address_line = form.elements['address_line'];
+        const town_city = form.elements['town_city'];
+        const parish = form.elements['parish'];
+        const admin_email = form.elements['admin_email'];
+        const admin_first_name = form.elements['admin_first_name']
+        const admin_last_name = form.elements['admin_last_name']
+        
+        const tenant = {
+          name: entity_name.value.trim(),
+          email: entity_email.value.trim(),
+          primary_contact: primary_contact.value.trim(),
+          description: description.value.trim(),
+          tag_line: tagline.value.trim(),
+          street_address: street_address.value.trim(),
+          address_line: address_line.value.trim(),
+          district_town_city: town_city.value.trim(),
+          parish: parish.options[parish.selectedIndex].value,
+          admin_first_name: admin_first_name.value.trim(),
+          admin_last_name: admin_last_name.value.trim(),
+          admin_email: admin_email.value.trim(),
+          contacts: [],
+          services: [],
+          socialMedia: [],
+          hours: []
         }
+       
+        const selects = document.getElementsByName('dayofweek');
+        const contactElements = document.getElementsByName('contact');
+        const serviceElements = document.getElementsByName('service');
+        const socialElements = document.getElementsByName('social');
+        let contactList = [];
+        let serviceList = [];
+        let socialList = [];
 
-        const removeFields = () => {
-            const inputs = document.getElementsByTagName('input');
-            const fields = document.getElementById('fields')
-            if(fields.length > 1){
-                fields.removeChild(fields.children[1])
-            }
+        serviceElements.forEach((service) => {
+          if(service.value !== "") serviceList.push(service.value);
+        })
+
+        socialElements.forEach((social) => {
+          if(social.value !== "") socialList.push(social.value);
+        })
+
+        contactElements.forEach((contact) => {
+          if(contact.value !== "") contactList.push(contact.value)
+        });
+
+        
+
+        tenant.contacts = contactList;
+        tenant.services = serviceList;
+        tenant.socialMedia = socialList; 
+        
+        let data = []
+        let openingHours = document.getElementsByName('open_at');
+        let closingHours = document.getElementsByName('closed_at');
+        let select = document.getElementsByName('dayofweek')
+        const length = openingHours.length;
+        let obj = {};
+        for(let i = 0; i < length; i++){
+          obj.open_at = openingHours[i].value;
+          obj.close_at = closingHours[i].value;
+          obj.dayofweek = select[i].options[select[i].selectedIndex].value;
+          data.push(obj)
+          obj = {}
         }
+        tenant.hours = data;
+        const url = "/tenants";
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(tenant),
+        };
+        fetch(url, requestOptions)
+          .then((response) => response.json())
+          .then((data) => {
+            if(data.success === true){
+              form.reset();
+            }
+            document.getElementById("success-modal").classList.toggle('is-active')
+          });
+      }
+      const buildSelectColumn = () => {
+        const days = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ];
+        const divColumn = document.createElement("div");
+        const divCtrl = document.createElement("div");
+        const divSelect = document.createElement("div");
+        const select = document.createElement("select");
+        select.setAttribute('name', 'dayofweek');
+        days.forEach((day) => {
+          const option = document.createElement("option");
+          option.value = day;
+          option.innerHTML = day;
+          select.appendChild(option);
+        });
+        divSelect.classList.add("select");
+        divSelect.classList.add("is-fullwidth");
+        divCtrl.setAttribute("class", "control");
+        divColumn.setAttribute("class", "column");
+        divSelect.appendChild(select);
+        divCtrl.appendChild(divSelect);
+        divColumn.appendChild(divCtrl);
+        return divColumn;
+      };
+
+      const addOpeningHourFields = (event) => {
+        event.preventDefault();
+        const fieldList = document.getElementById('fields-openinghours');
+        const select = buildSelectColumn();
+        const buttons = buildButtons();
+        const openAtField = createInputField("open_at");
+        const closedAtField = createInputField("closed_at");
+        const divOpenAt = document.createElement("div");
+        const divCloseAt = document.createElement("div");
+        divOpenAt.classList.add("column");
+        divCloseAt.classList.add("column");
+        divOpenAt.appendChild(openAtField);
+        divCloseAt.appendChild(closedAtField);
+        const divColumns = document.createElement("div");
+        divColumns.setAttribute("class", "columns");
+        divColumns.appendChild(select);
+        divColumns.appendChild(divOpenAt);
+        divColumns.appendChild(divCloseAt);
+        divColumns.appendChild(buttons);
+        fieldList.appendChild(divColumns);
+      };
+
+      const removeOpeningHoursFields = (event) => {
+        event.preventDefault()
+        const btn = event.target;
+        const fields = document.getElementById('fields-openinghours');
+        if (fields.children.length > 1) {
+          btn.parentNode.parentNode.parentNode.parentNode.remove()
+        }
+      };
+
+      const buildButtons = () => {
+        const addButton = document.createElement("button");
+        const removeButton = document.createElement("button");
+        const divCtrlAdd = document.createElement("div");
+        const divCtrlRemove = document.createElement("div");
+        const divColumn = document.createElement("div");
+        const divField = document.createElement("div");
+        addButton.classList.add("button");
+        addButton.classList.add("is-outlined")
+        addButton.classList.add("is-link")
+        removeButton.classList.add("button");
+        removeButton.classList.add("is-outlined")
+        removeButton.classList.add("is-danger")
+        divCtrlAdd.classList.add("control");
+        divCtrlRemove.classList.add("control");
+
+        addButton.innerText = "Add";
+        removeButton.innerText = "Remove";
+        addButton.addEventListener("click", addOpeningHourFields);
+        removeButton.addEventListener("click", removeOpeningHoursFields);
+
+        divColumn.classList.add("column");
+        divField.classList.add("field");
+        divField.classList.add("is-grouped");
+
+        divCtrlAdd.appendChild(addButton);
+        divCtrlRemove.appendChild(removeButton);
+
+        divField.appendChild(divCtrlAdd);
+        divField.appendChild(divCtrlRemove);
+
+        divColumn.appendChild(divField);
+        return divColumn;
+      };
+
+      // const process = () => {
+      //   let services = [];
+      //   const inputs = document.getElementsByName("service");
+      //   inputs.forEach((input) => {
+      //     services.push(input.value);
+      //   });
+      // };
+      const remove = (event, id) => {
+        event.preventDefault()
+        const fields = document.getElementById(id);
+        const btn = event.target;
+        if (fields.children.length > 1) {
+          btn.parentNode.parentNode.parentNode.remove();
+        }
+      };
+      const addFields = (event, name, id) => {
+        event.preventDefault();
+        const fieldList = document.getElementById(id);
+        const inputField = createInputField(name);
+        const buttonGroup = createButtonGroup(name, id);
+        const div = document.createElement("div");
+        const divCtrl = document.createElement("div");
+        divCtrl.classList.add("control");
+        divCtrl.classList.add("is-expanded")
+        div.classList.add("field");
+        div.classList.add("is-grouped");
+        divCtrl.appendChild(inputField);
+        div.appendChild(divCtrl);
+        div.appendChild(buttonGroup);
+        fieldList.appendChild(div);
+      };
+
+      // const removeFields = () => {
+      //   const fields = document.getElementById("fields");
+      //   if (fields.children.length > 1) {
+      //     fields.removeChild(fields.children[fields.children.length - 1]);
+      //   }
+      // };
+
+      const createButtonGroup = (name, id) => {
+        let buttonRemove = document.createElement("button");
+        let buttonAdd = document.createElement("button");
+        let divControlRemove = document.createElement("div");
+        let divControlAdd = document.createElement("div");
+        let divField = document.createElement("div");
+        divField.classList.add("field");
+        divField.classList.add("is-grouped");
+        divControlAdd.setAttribute("class", "control");
+        divControlRemove.setAttribute("class", "control");
+        buttonRemove.classList.add("button");
+        buttonRemove.classList.add("is-outlined");
+        buttonRemove.classList.add("is-danger");
+
+        buttonAdd.classList.add("button");
+        buttonAdd.classList.add("is-link")
+        buttonAdd.classList.add("is-outlined")
+        buttonAdd.innerText = "Add";
+        buttonRemove.innerText = "Remove";
+
+        buttonAdd.addEventListener("click", () => {
+          addFields(event, name, id);
+        });
+
+        buttonRemove.addEventListener("click", () => {
+          remove(event, id);
+        });
+
+        divControlAdd.appendChild(buttonAdd);
+        divControlRemove.appendChild(buttonRemove);
+        divField.appendChild(divControlAdd);
+        divField.appendChild(divControlRemove);
+        return divField;
+      };
+      const createInputField = (name) => {
+        let newField = document.createElement("input");
+        let divField = document.createElement("div");
+        let divControl = document.createElement("div");
+        divField.classList.add("field");
+        divField.classList.add("is-grouped");
+        divControl.classList.add("control");
+        divControl.classList.add("is-expanded");
+        newField.setAttribute("type", "text");
+        newField.setAttribute("class", "input");
+        // newField.setAttribute("placeholder", "Another field");
+        newField.setAttribute("name", name);
+        divControl.appendChild(newField);
+        divField.appendChild(divControl);
+        return divField;
+      };
     </script>
   </body>
 </html>

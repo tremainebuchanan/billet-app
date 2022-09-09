@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Appointments</title>
+    <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -10,62 +10,7 @@
   <body>
     <div class="container-fluid">
 
-        <nav class="navbar is-fixed-top is-light" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-              <a class="navbar-item" href="#">
-                <img src="/images/logo.png">
-              </a>
-          
-              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-              </a>
-            </div>
-          
-            <div id="navbarBasicExample" class="navbar-menu">
-              <div class="navbar-start">
-                <!-- <a class="navbar-item">
-                  Appointments
-                </a> -->
-          
-               
-          
-                
-              </div>
-          
-              <div class="navbar-end">
-                <div class="navbar-item has-dropdown is-hoverable">
-                  <a class="navbar-link">
-                   Settings
-                  </a>
-          
-                  <div class="navbar-dropdown">
-                    <a class="navbar-item">
-                      Profile
-                    </a>
-                   
-                    <hr class="navbar-divider">
-                    <a class="navbar-item" href="/logout">
-                      Logout
-                    </a>
-                  </div>
-                </div>
-                <div class="navbar-item">
-                  <p>Admin</p>
-                </div>
-               
-                <div class="navbar-item">
-                  <div class="buttons">
-                   
-                    <a class="button is-light" href="/logout">
-                      Log out
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nav>
+        <%- include('../../partials/admin/nav') %> 
           <div class="content" style="margin-top: 80px;">
             <div style="width: 500px; margin:auto">
               <div class="notification is-primary is-light" id="notification" style="display: none;">
@@ -91,15 +36,32 @@
               </div>
              
               <% if (tenants.length > 0) { %>
-                <table class="table is-fullwidth is-striped table-sort table-arrows" style="margin-top: 48px;" id="tenants">
+                <table class="table is-fullwidth" style="margin-top: 48px;" id="tenants">
                   <tr>
                     <th>Name</th>
-                    
+                    <th>Administrator</th>
+                    <th>Email</th>
+                    <th>Primary Contact</th>
+                    <th>Registerd on</th>
+                    <th>Status</th>
+                    <th>Actions</th>
                   </tr>
                   
                     <% tenants.forEach((tenant)=> { %>
                         <tr>
                             <td><%= tenant.name %> </td>
+                            <td><%= tenant.first_name %> <%= tenant.last_name %></td>
+                            <td><%= tenant.email %> </td>
+                            <td><%= tenant.primary_contact %></td>
+                            <td><%= moment(tenant.registered_on).format('D MMM YYYY') %></td>
+                            <td><%= getTenantStatus(tenant.is_active) %></td>
+                            <td>
+                              <div class="is-grouped">
+                                <a class="button is-small is-primary is-light" href="/admin/tenants/<%= tenant.id %>/view">View</a>
+                                <a class="button is-small is-info is-light" >Edit</a>
+                                <button class="button is-small is-danger is-light" onclick="removeTenant('<%= tenant.id %>')">Delete</button>
+                              </div>
+                              </td>
                         </tr>
                   <% }) %>
                   
@@ -125,5 +87,20 @@
     </div>
     <script src="/js/main.js"></script>
     <script src="/js/modals/main.js"></script>
+    <script>
+        const removeTenant = (id) => {
+          const url = `/tenants/${id}`;
+          const requestOptions = {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          };
+          fetch(url, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data)
+              window.location.reload();
+            });
+          }
+    </script>
   </body>
 </html>

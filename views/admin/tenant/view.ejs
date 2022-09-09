@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tenants | Create</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css"
+      integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+      integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <%- include('../../partials/admin/nav') %> 
+      <div class="content" style="margin-top: 80px; margin-bottom: 48px">
+        <div style="width: 860px; margin: auto">
+          <form action="" autocomplete="off" name="createTenant">
+            <div class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <h1 class="title is-4">View Tenant</h1>
+                </div>
+                
+              </div>
+              <div class="level-right">
+                <div class="level-item">
+                  <div class="field is-grouped">
+                    <div class="control">
+                      <a href="/admin" class="button is-ghost">Back to Tenants</a>
+                    </div>
+                    <!-- <div class="control">
+                      <button class="button is-link" onclick="process(event)">Process</button>
+                    </div> -->
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            
+          
+            <div class="box">
+              <h2 class="subtitle is-5">Business Details</h2>
+              <hr>
+              
+              <!-- <h1 class="title is-3">Create</h1> -->
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Name</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-static" type="text" name="entity_name" value="<%= tenant.name %>"/>
+                      <!-- <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                      </span> -->
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Email</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-static" type="text" name="entity_email" value="<%= tenant.email %>"/>
+                      <!-- <span class="icon is-small is-left">
+                        <i class="fa-solid fa-envelope"></i>
+                      </span> -->
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Primary Contact</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-static" type="text" name="primary_business_contact" value="<%= tenant.primary_contact %>"/>
+                      <!-- <span class="icon is-small is-left">
+                        <i class="fa-solid fa-phone"></i>
+                      </span> -->
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Tag Line</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-static" type="text" name="tagline" value="<%= tenant.tag_line %>" />
+                      <!-- <span class="icon is-small is-left">
+                        <i class="fa-solid fa-tag"></i>
+                      </span> -->
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Description</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input type="text" class="input is-static" value="<%= tenant.description %>">
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Street Address</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-static" type="text" name="street_address"  value="<%= tenant.street_address %>"/>
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Address Line</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-static" type="text" name="address_line" value="<%= tenant.address_line %>" />
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Town/City</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-static" type="text" name="town_city" value="<%= tenant.district_town_city %>" />
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Parish</label>
+                </div>
+                <div class="field-body">
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control is-expanded">
+                        <input class="input is-static" type="text" name="admin_email" value="<%= tenant.parish %>" />
+                        
+                      </p>
+                    </div>
+                  </div
+                </div>
+              </div>
+            </div>
+            <div class="box">
+              <h2 class="subtitle is-5">Administrator</h2>
+              <hr>
+              <!-- <h1 class="title is-3">Create</h1> -->
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Email</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-static" type="text" name="admin_email" value="<%= user.email %>" />
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">First Name</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-static" type="text" name="admin_first_name" value="<%= user.first_name%>" />
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Last Name</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input is-static" type="text" name="admin_last_name" value="<%= user.last_name%>" />
+                      
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box">
+              <h2 class="subtitle is-5">Additional Phone Numbers</h2>
+              <hr>
+              <ul>
+                <% contacts.forEach((contact)=> { %>
+                    <li><%= contact.phone %></li>
+                  <% }) %>
+              </ul>
+            </div>
+            <div class="box">
+              <h2 class="subtitle is-5">Services Offered</h2>
+              <hr>
+              <ul>
+                <% services.forEach((service)=> { %>
+                    <li><%= service.title %></li>
+                  <% }) %>
+              </ul>
+              
+            </div>
+            <div class="box">
+              <h2 class="subtitle is-5">Social Media Links</h2>
+              <hr>
+              <ul>
+                <% socials.forEach((social)=> { %>
+                    <li><%= social.handle %></li>
+                  <% }) %>
+              </ul>
+            </div>
+            <div class="box">
+              <h2 class="subtitle is-5">Opening Hours</h2>
+              <hr>
+              <ul>
+                <% hours.forEach((hour)=> { %>
+                    <li><%= hour.dayofweek %> <%= hour.open_at %> - <%= hour.close_at %></li>
+                  <% }) %>
+              </ul>
+              
+            </div>
+           
+          </form>
+  
+          <div class="modal" id="success-modal">
+            <div class="modal-background"></div>
+            <div class="modal-content" style="width: 450px">
+              <div class="box">
+                <div class="content">
+                  
+                  <p style="margin-bottom: 24px;">Tenant successfully created.</p>
+                </div>
+                
+               
+                
+                <div class="field is-grouped is-grouped-right">
+                  <div class="control">
+                    <button class="button is-link" onclick="closeModalById('success-modal')">Close</button>
+                  </div>
+                  
+                </div>
+              </div>
+    
+            </div>
+            <button class="modal-close is-large" aria-label="close" onclick="closeModalById('success-modal')"></button>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+    
+  </body>
+</html>

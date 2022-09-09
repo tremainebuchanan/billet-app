@@ -88,7 +88,7 @@
                     
                     <div class="field is-horizontal">
                       
-                      <div class="control">
+                      <div class="control has-icons-left">
                         <div class="select">
                           <select id="filter" onchange="filter('<%= tenant%>')">
                             <option value="" disabled selected>Filter by</option>
@@ -96,6 +96,9 @@
                             <option value="yesterday">Yesterday</option>  
                             <option value="today">Today</option>  
                           </select>
+                        </div>
+                        <div class="icon is-small is-left">
+                          <i class="fa-solid fa-filter"></i>
                         </div>
                       </div>
                     </div>
@@ -110,7 +113,7 @@
               
              
               <% if (appointments.length > 0) { %>
-                <table class="table is-fullwidth is-striped table-sort table-arrows" style="margin-top: 48px;" id="apts">
+                <table class="table is-fullwidth table-sort table-arrows" style="margin-top: 48px;" id="apts">
                   <tr>
                     <th>Status</th>
                     <th>Customer Name</th>

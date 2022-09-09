@@ -45,7 +45,7 @@ const buildEmailBodyByType = (data, emailType) => {
 
 router.post("/api/appointments", async (req, res, next) => {
   session = req.session;
-  //if(session.user_id){
+  // if(session.user_id){
   const request = req.body;
   const services = getServiceList();
   const service = services.find((x) => x.id === parseInt(request.service));
