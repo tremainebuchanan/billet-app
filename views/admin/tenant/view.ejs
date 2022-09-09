@@ -51,7 +51,18 @@
               <h2 class="subtitle is-5">Business Details</h2>
               <hr>
               
-              <!-- <h1 class="title is-3">Create</h1> -->
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Logo</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control is-expanded">
+                      <img src="/data/uploads/<%= tenant.logo + ".png" %>" alt="<%= tenant.logo %>">
+                    </p>
+                  </div>
+                </div>
+              </div>
               <div class="field is-horizontal">
                 <div class="field-label is-normal">
                   <label class="label">Name</label>

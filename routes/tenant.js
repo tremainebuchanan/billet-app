@@ -6,19 +6,34 @@ const crypto = require("crypto");
 const randomstring = require("randomstring");
 const { v4: uuidv4 } = require("uuid");
 const moment = require("moment");
+const multer  = require('multer')
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/data/uploads/')
+  },
+  filename: function (req, file, cb) {
+    const id = uuidv4();
+    const [filename, ext] = file.originalname.split(".");
+    cb(null, `${id}.${ext}`)
+  }
+})
+
+const upload = multer({ storage: storage })
 let session = require("express-session");
 
-router.post("/tenants", async (req, res, next) => {
+router.post("/tenants", upload.single('file'), async (req, res, next) => {
   session = req.session;
   if (session.user_id) {
-    const request = req.body;
+    const request = JSON.parse(req.body.tenant);
     const id = uuidv4();
-    const salt = crypto.randomBytes(60).toString();
+    const randomBytes = crypto.randomBytes(60).toString();
     //const randomPassword = randomstring.generate(16);
     const randomPassword = 'H1gh53cur1ty';
     const generatedPassword = await argon2.hash(randomPassword, {
-      salt: Buffer.from(salt),
+      salt: Buffer.from(randomBytes),
     });
+    const [filename, ext] = req.file.filename.split(".");
     const tenant = {
       id,
       name: request.name,
@@ -30,6 +45,7 @@ router.post("/tenants", async (req, res, next) => {
       address_line: request.address_line,
       district_town_city: request.district_town_city,
       parish: request.parish,
+      logo: filename,
     };
     const result = await knex
       .knex("usertypes")
@@ -42,10 +58,11 @@ router.post("/tenants", async (req, res, next) => {
       first_name: request.admin_first_name,
       last_name: request.admin_last_name,
       email: request.admin_email,
-      salt,
+      salt: randomBytes,
       password: generatedPassword,
       user_type_id: usertypeid,
     };
+    
     const services = request.services;
     let serviceItem = {};
     let serviceList = [];

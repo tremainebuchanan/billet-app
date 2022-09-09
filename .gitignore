@@ -61,4 +61,5 @@ typings/
 .next
 config/default.json
 *.sql
+public/data
 

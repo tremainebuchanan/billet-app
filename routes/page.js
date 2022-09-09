@@ -9,7 +9,15 @@ let session = require("express-session");
 router.get("/pages", async (req, res, next) => {
   const q = req.query;
   const result = await knex.knex("tenants").where({ id: q.tenant_id });
-  const services = getServiceList();
+  console.log(result)
+  const services = await knex.knex.raw('select * from services where tenant_id = ?', [q.tenant_id])
+  const serviceJson = JSON.parse(JSON.stringify(services[0]));
+  const contacts = await knex.knex.raw('select * from contacts where tenant_id = ?', [q.tenant_id])
+  const contactJson = JSON.parse(JSON.stringify(contacts[0]));
+  const hours = await knex.knex.raw('select * from hours where tenant_id = ?', [q.tenant_id])
+  const hoursJson = JSON.parse(JSON.stringify(hours[0]));
+  const socials = await knex.knex.raw('select * from socials where tenant_id = ?', [q.tenant_id])
+  const socialJson = JSON.parse(JSON.stringify(socials[0]));
   const times = buildAptTime();
   const title = `${result[0].name} | Book Appointment`;
   const og_title = title;
@@ -20,7 +28,10 @@ router.get("/pages", async (req, res, next) => {
     name: session.name,
     tenant: result,
     times: times,
-    services: services,
+    services: serviceJson,
+    contacts: contactJson,
+    hours: hoursJson,
+    socials: socialJson,
     title: title,
     og_image: og_image,
     og_title: og_title,

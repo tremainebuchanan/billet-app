@@ -48,7 +48,41 @@
             <div class="box">
               <h2 class="subtitle is-5">Business Details</h2>
               <hr>
-              <!-- <h1 class="title is-3">Create</h1> -->
+              
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Logo</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="file is-normal">
+                      <label class="file-label">
+                        <input class="file-input" type="file" name="resume" data-index="0" onChange="swapImage(this)">
+                        <span class="file-cta">
+                          <span class="file-icon">
+                            <i class="fas fa-upload"></i>
+                          </span>
+                          <span class="file-label">
+                            Upload logo
+                          </span>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Uploaded Logo</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <img src="https://dummyimage.com/150x150/000/fff" data-index="0" width="150" height="150">
+                  </div>
+                </div>
+              </div>
+       
               <div class="field is-horizontal">
                 <div class="field-label is-normal">
                   <label class="label">Name</label>
@@ -443,12 +477,19 @@
       </div>
     </div>
     <script>
+
+    const swapImage = (elm) => {
+      const index = elm.dataset.index;
+      const url = URL.createObjectURL(elm.files[0])
+      document.querySelector('img[data-index="'+index+'"]').src = url
+    }
       const closeModalById = (id) => {
         document.getElementById(id).classList.toggle('is-active');
       }
       const process = (event) => {
         event.preventDefault();
         
+
         const form = document.forms['createTenant'];
         const entity_name = form.elements['entity_name'];
         const entity_email = form.elements['entity_email'];
@@ -522,11 +563,14 @@
           obj = {}
         }
         tenant.hours = data;
+        const formData = new FormData()
+        const input = document.querySelector('input[type="file"]')
+        formData.append('file', input.files[0]);
+        formData.append('tenant', JSON.stringify(tenant));
         const url = "/tenants";
         const requestOptions = {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(tenant),
+          body: formData,
         };
         fetch(url, requestOptions)
           .then((response) => response.json())

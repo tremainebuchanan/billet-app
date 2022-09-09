@@ -1,333 +1,372 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <%- include('../partials/og') %>
-    <%- include('../partials/head') %> 
-  </head>
-  <body>
-    <div class="container-fluid">
-      
-      <div style="margin: auto; width: 314px; height: 62px; margin-top: 48px;">
-        <div class="box">
-          <img src="/images/logo.png" alt="logo" width="314" height="62" />
-        </div>
-       
+
+<head>
+  <%- include('../partials/og') %>
+    <%- include('../partials/head') %>
+    <style>
+      .content > .address > p{
+        margin-bottom: 0px;
+        margin-top: 0px;
+      }
+    </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+
+    <div style="margin: auto; width: 200px; height: 200px; margin-top: 48px;">
+      <div class="box">
+        <img src="/data/uploads/<%= tenant[0].logo + '.png'%>" alt="<%= tenant[0].logo%>" width="200" height="200"/>
       </div>
-      <div
-        class="container"
-        style="width: 960px; margin-bottom: 48px; margin-top: 70px"
-      >
+
+    </div>
+    <div class="container" style="width: 960px; margin-bottom: 48px; margin-top: 70px">
       <h1 class="title is-3" style="text-align: center;">Book an Appointment</h1>
-        <div class="columns">
-          <div class="column is-one-third">
-            <div class="box">
-              <div class="content">
-                <p>
-                  Thanks for visiting our web scheduler to make an appointment
-                  with us.
-                </p>
-                <p>
-                  Complete the form on the right to reserve a time to meet with
-                  <strong><%= tenant[0].name %></strong>.
-                </p>
-                <p>We look forward to serving you.</p>
-                <p><strong>Contact Us:</strong></p>
-                <p><strong>Opening Hours:</strong></p>
-              </div>
-            </div>
-          </div>
-          <div class="column">
-            
-            
-
-                <form action="" method="post" autocomplete="off" id="newAppointment">
-                  <div class="box">
-                    <div class="field is-fullwidth">
-                      <label for="" class="label"
-                        >Select appointment type</label
-                      >
-                      <div class="control">
-                        <div class="select">
-                          <select id="service">
-                            <% services.forEach((service)=> { %>
-
-                            <option value="<%= service.id%>">
-                              <%= service.title%>
-                            </option>
-
-                            <% }) %>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="box">
-                    <div class="columns">
-                      <div class="column">
-                        <label class="label">Select a date</label>
-                        <input type="date" name="" id="my-element" />
-                      </div>
-                      <div class="column">
-                        <div class="field">
-                          <label class="label">Select a time</label>
-                          <div class="control">
-                            <div class="select">
-                              <select id="apt_time">
-                                <% times.forEach((time)=> { %>
-                                <option value="<%= time%>"><%= time%></option>
-                                <% }) %>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="box">
-                    <h3 class="title is-5">Contact Information</h3>
-                    <div class="columns">
-                      <div class="column">
-                        <div class="field">
-                          <label class="label">First Name</label>
-                          <div class="control has-icons-left">
-                            <input class="input" type="text" id="first_name" />
-                            <span class="icon is-small is-left">
-                              <i class="fa-solid fa-user"></i>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="column">
-                        <div class="field">
-                          <label class="label">Last Name</label>
-                          <div class="control has-icons-left">
-                            <input class="input" type="text" id="last_name" />
-                            <span class="icon is-small is-left">
-                              <i class="fa-solid fa-user"></i>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="field">
-                      <label class="label">Email</label>
-                      <div class="control has-icons-left">
-                        <input class="input" type="email" id="email" />
-                        <span class="icon is-small is-left">
-                          <i class="fas fa-envelope"></i>
-                        </span>
-                      </div>
-                    </div>
-
-                    <div class="field">
-                      <label class="label">Contact Number</label>
-                      <div class="control has-icons-left">
-                        <input class="input" type="text" id="contact" />
-                        <span class="icon is-small is-left">
-                          <i class="fa-solid fa-phone"></i>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <button
-                  class="button is-link is-fullwidth"
-                  onclick="confirmApt(event, 'confirm-apt')"
-                >
-                  Book Appointment
-                </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal" id="confirm-apt">
-        <div class="modal-background"></div>
-        <div class="modal-content" style="width: 450px">
+      <div class="columns">
+        <div class="column is-one-third">
           <div class="box">
             <div class="content">
-              <form method="post" autocomplete="off">
-                <h1 class="subtitle is-5">Confirm your appointment</h1>
-                <div class="field">
-                  <label class="label">Customer Name</label>
-                  <div class="control">
-                    <input type="text" disabled id="c_name" class="input" />
-                  </div>
+              <p>
+                Thanks for visiting our web scheduler to make an appointment
+                with us.
+              </p>
+              <p>
+                Complete the form on the right to reserve a time to meet with
+                <strong>
+                  <%= tenant[0].name %>
+                </strong>.
+              </p>
+              <p>We look forward to serving you.</p>
+              <p><strong>Contact Us:</strong></p>
+              <div class="address">
+                <p><%= tenant[0].street_address %>,</p>
+                <p><%= tenant[0].address_line %>,</p>
+                <p><%= tenant[0].district_town_city %>,</p>
+                <p><%= tenant[0].parish %></p>
+              </div>
+              
+              
+
+             <p style="margin-top: 12px;margin-bottom:0px"><strong>Telephone:</strong></p>
+             <ul>
+
+             
+              <% contacts.forEach((contact)=> { %>
+
+                  <li>
+                    <a href="" style="text-decoration: underline;">
+                      <%= contact.phone %>
+                    </a>
+                  </li>
                   
-                </div>
+                
 
-                <div class="field">
-                  <label class="label">Email:</label>
-                  <div class="control">
-                    <input type="text" disabled id="c_email" class="input" />
-                  </div>
-                </div>
 
-                <div class="field">
-                  <label class="label">Contact Number:</label>
-                  <div class="control">
-                    <input type="text" disabled id="c_contact" class="input" />
-                  </div>
-                </div>
 
-                <div class="columns">
-                  <div class="column">
-                    <div class="field">
-                      <label for="label" class="label">Appointment Date</label>
-                      <div class="control">
-                        <input
-                          type="text"
-                          disabled
-                          id="c_apt_date"
-                          class="input"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="column">
-                    <div class="field">
-                      <label class="label">Appointment Time</label>
-                      <div class="control">
-                        <input
-                          type="text"
-                          disabled
-                          id="c_apt_time"
-                          class="input"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <% }) %>
+              </ul>
+                  <div style="margin-top: 12px ;">
+                    <p><strong>Opening Hours:</strong></p>
+                    <ul>
+                      <% hours.forEach((hour)=> { %>
 
-                <div class="field">
-                  <label class="label">Service</label>
-                  <div class="control">
-                    <div class="control">
-                      <input
-                        type="text"
-                        disabled
-                        id="c_service"
-                        class="input"
-                      />
-                    </div>
+                        <li>
+                          <%= hour.dayofweek %>: <%= hour.open_at %>
+                              <%= hour.close_at %>
+                        </li>
+
+
+
+
+
+                        <% }) %>
+                    </ul>
                   </div>
-                </div>
-                <div
-                  class="field is-grouped is-grouped-right"
-                  style="margin-top: 24px"
-                >
-                  <div class="control">
-                    <button
-                      class="button is-light"
-                      onclick="closeModal(event)"
-                    >
-                      Cancel
-                    </button>
+
+                  <div style="margin-top: 12px ;">
+                    <p><strong>Social Media:</strong></p>
+                    <ul>
+                      <% socials.forEach((social)=> { %>
+
+                        <li>
+                          <a href="<%=social.handle%>" target="_blank"><%= social.handle %></a>
+                        </li>
+
+
+
+
+
+                        <% }) %>
+                    </ul>
                   </div>
-                  <div class="control">
-                    <button
-                      class="button is-link"
-                      onclick="saveApt(event, '<%= JSON.stringify(tenant[0].id)%>')"
-                    >
-                      Confirm Appointment
-                    </button>
-                  </div>
-                </div>
-              </form>
+
             </div>
           </div>
         </div>
-        <button
-          class="modal-close is-large"
-          aria-label="close"
-          onclick="closeModal(event)"
-        ></button>
+        <div class="column">
+
+
+
+          <form action="" method="post" autocomplete="off" id="newAppointment">
+            <div class="box">
+
+              <div class="field is-fullwidth">
+                <label for="" class="label">Select appointment type</label>
+                <div class="control">
+                  <div class="select">
+                    <select id="service">
+                      <% services.forEach((service)=> { %>
+
+                        <option value="<%= service.id%>">
+                          <%= service.title%>
+                        </option>
+
+                        <% }) %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="box">
+              <div class="columns">
+                <div class="column">
+                  <label class="label">Select a date</label>
+                  <input type="date" name="" id="my-element" />
+                </div>
+                <div class="column">
+                  <div class="field">
+                    <label class="label">Select a time</label>
+                    <div class="control">
+                      <div class="select">
+                        <select id="apt_time">
+                          <% times.forEach((time)=> { %>
+                            <option value="<%= time%>">
+                              <%= time%>
+                            </option>
+                            <% }) %>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="box">
+              <h3 class="title is-5">Contact Information</h3>
+              <div class="columns">
+                <div class="column">
+                  <div class="field">
+                    <label class="label">First Name</label>
+                    <div class="control has-icons-left">
+                      <input class="input" type="text" id="first_name" />
+                      <span class="icon is-small is-left">
+                        <i class="fa-solid fa-user"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="field">
+                    <label class="label">Last Name</label>
+                    <div class="control has-icons-left">
+                      <input class="input" type="text" id="last_name" />
+                      <span class="icon is-small is-left">
+                        <i class="fa-solid fa-user"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Email</label>
+                <div class="control has-icons-left">
+                  <input class="input" type="email" id="email" />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label">Contact Number</label>
+                <div class="control has-icons-left">
+                  <input class="input" type="text" id="contact" />
+                  <span class="icon is-small is-left">
+                    <i class="fa-solid fa-phone"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button class="button is-link is-fullwidth" onclick="confirmApt(event, 'confirm-apt')">
+              Book Appointment
+            </button>
+          </form>
+        </div>
       </div>
     </div>
-    <script src="/libs/bulma-calendar/dist/js/bulma-calendar.min.js"></script>
-    <script>
-      const options = {
-        displayMode: "inline",
-        color: "dark",
-        showHeader: false,
-        showFooter: false,
+  </div>
+  </div>
+  <div class="modal" id="confirm-apt">
+    <div class="modal-background"></div>
+    <div class="modal-content" style="width: 450px">
+      <div class="box">
+        <div class="content">
+          <form method="post" autocomplete="off">
+            <h1 class="subtitle is-5">Confirm your appointment</h1>
+            <div class="field">
+              <label class="label">Customer Name</label>
+              <div class="control">
+                <input type="text" disabled id="c_name" class="input" />
+              </div>
+
+            </div>
+
+            <div class="field">
+              <label class="label">Email:</label>
+              <div class="control">
+                <input type="text" disabled id="c_email" class="input" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Contact Number:</label>
+              <div class="control">
+                <input type="text" disabled id="c_contact" class="input" />
+              </div>
+            </div>
+
+            <div class="columns">
+              <div class="column">
+                <div class="field">
+                  <label for="label" class="label">Appointment Date</label>
+                  <div class="control">
+                    <input type="text" disabled id="c_apt_date" class="input" />
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <label class="label">Appointment Time</label>
+                  <div class="control">
+                    <input type="text" disabled id="c_apt_time" class="input" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Service</label>
+              <div class="control">
+                <div class="control">
+                  <input type="text" disabled id="c_service" class="input" />
+                </div>
+              </div>
+            </div>
+            <div class="field is-grouped is-grouped-right" style="margin-top: 24px">
+              <div class="control">
+                <button class="button is-light" onclick="closeModal(event)">
+                  Cancel
+                </button>
+              </div>
+              <div class="control">
+                <button class="button is-link" onclick="saveApt(event, '<%= JSON.stringify(tenant[0].id)%>')">
+                  Confirm Appointment
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal(event)"></button>
+  </div>
+  </div>
+  <script src="/libs/bulma-calendar/dist/js/bulma-calendar.min.js"></script>
+  <script>
+    const options = {
+      displayMode: "inline",
+      color: "dark",
+      showHeader: false,
+      showFooter: false,
+    };
+    const calendars = bulmaCalendar.attach('[type="date"]', options);
+    const element = document.querySelector("#my-element");
+    let start_date;
+    if (element) {
+      // bulmaCalendar instance is available as element.bulmaCalendar
+      element.bulmaCalendar.on("select", (datepicker) => {
+        start_date = datepicker.data.value();
+      });
+    }
+
+    const saveApt = (event, tenant) => {
+      event.preventDefault();
+      const first_name = document.getElementById("first_name").value;
+      const last_name = document.getElementById("last_name").value;
+      const email = document.getElementById("email").value;
+      const contact = document.getElementById("contact").value;
+
+      const start_time = document.getElementById("apt_time");
+      const service = document.getElementById("service");
+      const selectedService = service.options[service.selectedIndex].value;
+      const selectedTime = start_time.options[start_time.selectedIndex].value;
+
+      const apt = {
+        first_name,
+        last_name,
+        email,
+        contact,
+        tenant_id: JSON.parse(tenant),
+        service: selectedService,
+        start_date,
+        start_time: selectedTime,
       };
-      const calendars = bulmaCalendar.attach('[type="date"]', options);
-      const element = document.querySelector("#my-element");
-      let start_date;
-      if (element) {
-        // bulmaCalendar instance is available as element.bulmaCalendar
-        element.bulmaCalendar.on("select", (datepicker) => {
-          start_date = datepicker.data.value();
+
+      sendAptData(apt);
+      document.getElementById('confirm-apt').classList.remove('is-active')
+    };
+
+    const confirmApt = (event, id) => {
+      event.preventDefault()
+      const first_name = document.getElementById("first_name").value;
+      const last_name = document.getElementById("last_name").value;
+      const email = document.getElementById("email").value;
+      const contact = document.getElementById("contact").value;
+      const start_time = document.getElementById("apt_time");
+      const service = document.getElementById("service");
+      const selectedService = service.options[service.selectedIndex].value;
+      const selectedTime = start_time.options[start_time.selectedIndex].value;
+      document.getElementById(id).classList.add('is-active');
+      document.getElementById("c_name").value = first_name + " " + last_name;
+      document.getElementById("c_email").value = email;
+      document.getElementById("c_contact").value = contact;
+      document.getElementById("c_apt_date").value = start_date;
+      document.getElementById("c_apt_time").value = selectedTime;
+      document.getElementById("c_service").value = service.options[service.selectedIndex].text
+    }
+
+    const closeModal = (event) => {
+      event.preventDefault()
+      document.getElementById('confirm-apt').classList.remove('is-active')
+    }
+
+    const sendAptData = (appointment) => {
+      const url = "/api/appointments";
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(appointment),
+      };
+      fetch(url, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          window.location.href = '/pages?tenant_id=' + appointment.tenant_id + '&booked=true';
         });
-      }
+    };
+  </script>
+</body>
 
-      const saveApt = (event, tenant) => {
-        event.preventDefault();
-        const first_name = document.getElementById("first_name").value;
-        const last_name = document.getElementById("last_name").value;
-        const email = document.getElementById("email").value;
-        const contact = document.getElementById("contact").value;
-
-        const start_time = document.getElementById("apt_time");
-        const service = document.getElementById("service");
-        const selectedService = service.options[service.selectedIndex].value;
-        const selectedTime = start_time.options[start_time.selectedIndex].value;
-        
-        const apt = {
-          first_name,
-          last_name,
-          email,
-          contact,
-          tenant_id: JSON.parse(tenant),
-          service: selectedService,
-          start_date,
-          start_time: selectedTime,
-        };
-        
-        sendAptData(apt);
-        document.getElementById('confirm-apt').classList.remove('is-active')
-      };
-
-      const confirmApt = (event, id) => {
-        event.preventDefault()
-        const first_name = document.getElementById("first_name").value;
-        const last_name = document.getElementById("last_name").value;
-        const email = document.getElementById("email").value;
-        const contact = document.getElementById("contact").value;
-        const start_time = document.getElementById("apt_time");
-        const service = document.getElementById("service");
-        const selectedService = service.options[service.selectedIndex].value;
-        const selectedTime = start_time.options[start_time.selectedIndex].value;
-        document.getElementById(id).classList.add('is-active');
-        document.getElementById("c_name").value = first_name + " " + last_name;
-        document.getElementById("c_email").value = email;
-        document.getElementById("c_contact").value = contact;
-        document.getElementById("c_apt_date").value = start_date;
-        document.getElementById("c_apt_time").value = selectedTime;
-        document.getElementById("c_service").value = service.options[service.selectedIndex].text
-      }
-
-      const closeModal = (event) => {
-        event.preventDefault()
-        document.getElementById('confirm-apt').classList.remove('is-active')
-      }
-
-      const sendAptData = (appointment) => {
-        const url = "/api/appointments";
-        const requestOptions = {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(appointment),
-        };
-        fetch(url, requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-            window.location.href = '/pages?tenant_id=' + appointment.tenant_id + '&booked=true';
-          });
-      };
-    </script>
-  </body>
 </html>
